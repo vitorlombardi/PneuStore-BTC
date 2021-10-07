@@ -1,0 +1,35 @@
+.item-cart {
+	position: relative;
+
+	img {
+		max-width: 120px;
+	}
+
+	.title {
+		font-size: 1rem;
+	}
+
+	.add-item {
+		width: 30px;
+		border: none;
+	}
+
+	.quant-item {
+		width: 30px;
+		border: none;
+		text-align: center;
+		padding: 0 1rem;
+	}
+
+	.close {
+		position: absolute;
+		// font-size: 1.5rem;
+		top: 0;
+		right: 0;
+		border: none;
+		padding: 0 0.5rem;
+		background-color: rgb(255, 158, 158);
+		color: rgb(255, 255, 255);
+	}
+
+}

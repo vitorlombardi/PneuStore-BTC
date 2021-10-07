@@ -1,0 +1,19 @@
+$color-default: #4e008e;
+
+.form-pagamento{
+
+    .CVV{
+        margin-left: 2rem;
+        width: 100%;
+    }
+
+    .botao{
+        width: 13rem;
+        border-radius: 0.5rem;
+        height: 2.4rem;
+        background-color: $color-default;
+		color: white;
+    }
+
+
+}

@@ -1,0 +1,57 @@
+$color-secondary:#68dcfa;
+
+.bar-progress {
+	position: relative;
+
+	.step {
+
+		.point{
+			$width: 20px;
+			content: '';
+			position: relative;
+			left: calc(50% - $width/2);
+			background-color: $color-secondary;
+			width: $width;
+			height: $width;
+			border-radius: 50%;
+			margin-bottom: 10px;
+			color: white;
+			font-size: 0.9rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			user-select: none;
+		}
+
+		span{
+			user-select: none;
+		}
+
+	}
+
+	.line {
+		content: '';
+		position: absolute;
+		top: 10px;
+		left: 11px;
+		background-color: rgb(223, 223, 223);
+		width: 525px;
+		height: 3px;
+
+		@media screen and (max-width: 768px) {
+			width: 90%;
+		}
+
+		.line-fill {
+			position: relative;
+			width: calc((525px / 3) * 1);
+			height: 3px;
+			background-color: $color-secondary;
+
+			@media screen and (max-width: 768px) {
+				width: calc((100% / 3) * 1);
+
+			}
+		}
+	}
+}

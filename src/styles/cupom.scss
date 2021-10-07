@@ -1,0 +1,33 @@
+$color-default: #4e008e;
+$color-secondary:#68dcfa;
+
+.cupom {
+  border-top: 1px solid rgb(221, 221, 221);
+  width: 27rem;
+  padding: 1.5rem;
+
+  .cupom-button {
+    margin-left: 1rem;
+    color: $color-default;
+    border: 1px solid;
+    border-color: $color-default;
+    border-radius: 0.5rem;
+    background-color: white;
+  }
+
+  .cupom-button:hover{
+		color: #8aac03;
+		background-color: $color-default;
+		color: white;
+	}
+
+  
+
+  & input {
+    width: 16rem;
+  }
+}
+
+hr{
+	width: 27rem;
+}

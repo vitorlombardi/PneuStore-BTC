@@ -17,12 +17,12 @@ export default function FormPagamento({setResumo, setPagamento}) {
                     <div className=' d-flex flex-column'>
                         <h3 className='fw-bold'>detalhes do pagamento</h3>
                         <div className='d-flex flex-column mt-3'>
-                            <label htmlFor="">nome do titular</label>
+                            <label htmlFor="">Nome do titular</label>
                             <input className='mt-1' type="text" required/>
                         </div>
 
                         <div className='d-flex flex-column mt-3'>
-                            <label htmlFor="">número do cartão</label>
+                            <label htmlFor="">Número do cartão</label>
                             <input className='mt-1' type="number" required
                             />
                         </div>

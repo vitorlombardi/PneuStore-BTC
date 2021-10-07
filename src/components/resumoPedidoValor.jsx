@@ -6,7 +6,7 @@ export default function ResumoPedido() {
 		<div className='d-flex flex-column resumo-pedido'>
 
             <div className='d-flex flex-row tipo-pedido'>
-                <p><b>subTotal:</b></p>
+                <p><b>SubTotal:</b></p>
                 <p>R$900,00</p>
             </div>
             <div className='d-flex flex-row tipo-pedido'>

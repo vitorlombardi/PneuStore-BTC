@@ -39,29 +39,10 @@ export default function Modal({
                         <b>Complemento: </b>lado par
                       </span>
                       <span>
-                        <b>bairro: </b>jardim teste
+                        <b>Bairro: </b>jardim teste
                       </span>
                       <span>
-                        <b>uf: </b> SP
-                      </span>
-                      <span>
-                        <b>CEP: </b>00000-000
-                      </span>
-                    </div>
-
-                    <div className="endereco">
-                      <input type="radio" name="id-endereco" />
-                      <span>
-                        <b>Endereço: </b>rua teste 16
-                      </span>
-                      <span>
-                        <b>Complemento: </b>lado par
-                      </span>
-                      <span>
-                        <b>bairro: </b>jardim teste
-                      </span>
-                      <span>
-                        <b>uf: </b> SP
+                        <b>Uf: </b> SP
                       </span>
                       <span>
                         <b>CEP: </b>00000-000
@@ -77,10 +58,29 @@ export default function Modal({
                         <b>Complemento: </b>lado par
                       </span>
                       <span>
-                        <b>bairro: </b>jardim teste
+                        <b>Bairro: </b>jardim teste
                       </span>
                       <span>
-                        <b>uf: </b> SP
+                        <b>Uf: </b> SP
+                      </span>
+                      <span>
+                        <b>CEP: </b>00000-000
+                      </span>
+                    </div>
+
+                    <div className="endereco">
+                      <input type="radio" name="id-endereco" />
+                      <span>
+                        <b>Endereço: </b>rua teste 16
+                      </span>
+                      <span>
+                        <b>Complemento: </b>lado par
+                      </span>
+                      <span>
+                        <b>Bairro: </b>jardim teste
+                      </span>
+                      <span>
+                        <b>Uf: </b> SP
                       </span>
                       <span>
                         <b>CEP: </b>00000-000
@@ -102,7 +102,7 @@ export default function Modal({
                       className="mt-2 botao-confirmar"
                       onClick={() => setOpen(!open)}
                     >
-                      enviar para este endereço
+                      Enviar para este endereço
                     </button>
                   </div>
                 </div>
@@ -119,14 +119,14 @@ export default function Modal({
                 </div>
                 <div className="mt-2 d-flex justify-content-center">
                   <p>
-                    <b>preencha os dados abaixo</b>
+                    <b>Preencha os dados abaixo</b>
                   </p>
                 </div>
                 <div className="form-endereco">
                   <form>
                     <div>
                       <div className="d-flex flex-column">
-                        <label htmlFor="">endereço</label>
+                        <label htmlFor="">Endereço</label>
                         <input
                           name="logradouro"
                           className="mt-1"
@@ -135,7 +135,7 @@ export default function Modal({
                         />
                       </div>
                       <div className="d-flex flex-column mt-3">
-                        <label htmlFor="">número</label>
+                        <label htmlFor="">Número</label>
                         <input
                           name="num"
                           className="mt-1"
@@ -145,7 +145,7 @@ export default function Modal({
                       </div>
                     </div>
                     <div className="d-flex flex-column mt-3">
-                      <label htmlFor="">complemento(opcional)</label>
+                      <label htmlFor="">Complemento(opcional)</label>
                       <input
                         name="complemento"
                         className="mt-1"
@@ -154,7 +154,7 @@ export default function Modal({
                       />
                     </div>
                     <div className="d-flex flex-column mt-3">
-                      <label htmlFor="">bairro</label>
+                      <label htmlFor="">Bairro</label>
                       <input
                         name="bairro"
                         className="mt-1"
@@ -163,7 +163,7 @@ export default function Modal({
                       />
                     </div>
                     <div className="d-flex flex-column mt-3">
-                      <label htmlFor="">cidade</label>
+                      <label htmlFor="">Cidade</label>
                       <input
                         name="cidade"
                         className="mt-1"
@@ -172,7 +172,7 @@ export default function Modal({
                       />
                     </div>
                     <div className="d-flex flex-column mt-3">
-                      <label htmlFor="">uf</label>
+                      <label htmlFor="">Uf</label>
                       <input name="uf" className="mt-1" type="text" required />
                     </div>
                     <div className="d-flex flex-column mt-3">

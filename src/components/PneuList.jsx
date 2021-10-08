@@ -40,6 +40,5 @@ export const PneusCard = () =>{
                 </div>
             ))}
         </div>
-        
     )
 }

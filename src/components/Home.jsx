@@ -12,7 +12,7 @@ import Resumo from "./resumo";
 import ItemCarrinho from "./ItemCarrinho";
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
-import { PneusCard } from "./PneuList";
+import PneuList from "./PneuList";
 
 export default function Home() {
   const [conta, setConta] = useState(true);
@@ -62,7 +62,7 @@ export default function Home() {
               {/* <Entrega /> */}
               {/* <Resumo/> */}
               {/* {Render} */}
-              <PneusCard />
+              <PneuList />
             </Col>
 
             {/* <Col className="infos" md="4">

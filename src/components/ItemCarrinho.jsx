@@ -7,19 +7,6 @@ export default function ItemCarrinho() {
 
 	const[itemCarrinho, setItemCarrinho] = useState(undefined);
 
-	// useEffect(() => {
-	// 	const loadData = async () => {
-	// 	  const response = await Api.buildAppGetRequest(Api.readAllTyreUrl(), true);
-	
-	// 	  const result = await response.json();
-
-	// 	  setItemCarrinho(result);
-			
-	// 	};
-	// 	loadData();
-	//   }, []);
-
-
 	return (
 		<div className='row mt-4 item-cart'>
 			<div className="col-4">

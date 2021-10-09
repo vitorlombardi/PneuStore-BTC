@@ -2,13 +2,15 @@ import "../styles/entrega.scss";
 import { useState } from "react";
 import ProgressBar from "./FormAccount/ProgressBar";
 import React from "react";
-import Modal from "./modal/modal";
+import ModalMontagemCasa from "./modal/modalMontagemCasa";
+import ModalEntregaCasa from "./modal/ModalEntregaCasa";
 
 export default function Entrega({setPagamento, setEntrega}) {
   
   const [CEP, setCEP] = useState(false);
 
-  const [openModaCasa, setOpenModaCasa] = useState(false);
+  const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
+  const [openModaEntregaCasa, setOpenModaEntregaCasa] = useState(false);
 
   const [enderecoEscolhido, setEnderecoEscolhido]= useState(undefined);
 
@@ -16,6 +18,13 @@ export default function Entrega({setPagamento, setEntrega}) {
     setPagamento(true)
     setEntrega(false)
   }
+
+  const handleClickButtonCEP = (e) => {
+    e.preventDefault()
+
+    setCEP(true)
+  }
+  console.log(openModaEntregaCasa)
 
   return (
     <div>
@@ -59,7 +68,7 @@ export default function Entrega({setPagamento, setEntrega}) {
 
               <span
                 className="button-cep"
-                onClick={e => setCEP(true)}
+                onClick={handleClickButtonCEP}
               >
                 Calcular entrega
               </span>
@@ -75,7 +84,7 @@ export default function Entrega({setPagamento, setEntrega}) {
 
                 <div
                   className="card mt-3 card-entrega"
-                  onClick={() => setOpenModaCasa(true)}
+                  onClick={() => setOpenModaMontagemCasa(true)}
                 >
                   <h5 className="card-header">Montagem Móvel</h5>
                   <div className="card-body">
@@ -90,14 +99,21 @@ export default function Entrega({setPagamento, setEntrega}) {
                   
                 </div>
 
-                <Modal 
-                open={openModaCasa} 
-                setOpen={setOpenModaCasa}
+                <ModalMontagemCasa 
+                open={openModaMontagemCasa} 
+                setOpen={setOpenModaMontagemCasa}
                 setEnderecoEscolhido={setEnderecoEscolhido}
-                onClose={ () => setOpenModaCasa(false) } 
+                onClose={ () => setOpenModaMontagemCasa(false) } 
                 />
 
-                <div className="card mt-3 card-entrega">
+                <ModalEntregaCasa
+                open={openModaEntregaCasa}
+                setOpen={setOpenModaEntregaCasa}
+                setEnderecoEscolhido={setEnderecoEscolhido}
+                onClose={ () => setOpenModaEntregaCasa(false) } 
+                />
+
+                <div className="card mt-3 card-entrega" onClick={() => alert("Serviço invalido")}>
                   <h5 className="card-header">
                     Entregar e montar em um Centro de Montagem
                   </h5>
@@ -106,14 +122,14 @@ export default function Entrega({setPagamento, setEntrega}) {
                       Confira a disponibilidade dos serviços em cada centro de
                       montagem
                     </h5>
-                    <div className="d-flex flex-row qz-between">
+                    <div className="d-flex flex-row justify-content-between">
                       <p className="card-text">De 4 a 7 dias úteis</p>
                       <p className="card-text">R$34,90</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="card mt-3 card-entrega">
+                <div className="card mt-3 card-entrega" onClick={() => setOpenModaEntregaCasa(true)}>
                   <h5 className="card-header">Entregar no meu endereço</h5>
                   <div className="card-body">
                     <h5 className="card-title">Norma</h5>

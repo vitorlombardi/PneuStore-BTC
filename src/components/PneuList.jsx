@@ -23,7 +23,7 @@ export default function PneuList() {
   if (!loading) {
     return (
       <div className="carregando">
-        <h1>Carregando personagem...</h1>
+        <h1>Carregando itens do estoque...</h1>
       </div>
     );
   }

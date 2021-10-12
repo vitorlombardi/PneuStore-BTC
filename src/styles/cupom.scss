@@ -37,5 +37,19 @@ hr {
     align-items: center;
     display: flex;
     justify-content: center;
+    width: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .cupom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .cupom-button{
+      margin-top: 1rem;
+    }
   }
 }

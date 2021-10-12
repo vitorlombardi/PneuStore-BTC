@@ -73,14 +73,30 @@ form {
     display: flex;
     justify-content: center;
   }
+
+  .form-cria{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-account{
+    display: flex;
+    justify-content: center;
+  }
+
   .form-itens{
+    margin-top: 0;
     max-width: 300px;
     margin-top: 1rem;
   }
 
   .input-item {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+  }
+
+  .item{
+    margin-top: 0;
   }
 }

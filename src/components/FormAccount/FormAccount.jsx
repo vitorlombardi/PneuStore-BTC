@@ -117,7 +117,7 @@ export default function FormAccount({ setEntrega }) {
           </div>
         </form>
       ) : (
-        <form className="col-12 col-lg-8 pb-5" onSubmit={handleSubmitRegister}>
+        <form className="col-12 col-lg-8 pb-5 form-cria" onSubmit={handleSubmitRegister}>
           <div className="d-flex flex-column form-itens">
             <h3 className="fw-bold">Criar conta</h3>
             <p>Crie uma conta para prosseguir com sua compra.</p>
@@ -128,7 +128,7 @@ export default function FormAccount({ setEntrega }) {
               <label htmlFor="">Nome completo</label>
               <input
                 name="nomeCompleto"
-                className="mt-1"
+                className="mt-1 item"
                 type="text"
                 placeholder="Digite seu nome de usuário"
               />
@@ -139,7 +139,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">CPF</label>
                 <input
                   name="cpf"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="text"
                   placeholder="Digite seu cpf"
                 />
@@ -149,7 +149,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">Data de nascimento</label>
                 <input
                   name="data"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="date"
                   placeholder="Digite seu nome de usuário"
                 />
@@ -161,7 +161,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">Email</label>
                 <input
                   name="email"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="email"
                   placeholder="O email que você mais usa"
                 />
@@ -171,7 +171,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">Telefone</label>
                 <input
                   name="telefone"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="text"
                   placeholder="Telefone para contato"
                 />
@@ -183,7 +183,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">Senha</label>
                 <input
                   name="senha"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="password"
                   placeholder="Digite sua senha"
                 />
@@ -193,7 +193,7 @@ export default function FormAccount({ setEntrega }) {
                 <label htmlFor="">Confirmar senha</label>
                 <input
                   name="confirmarSenha"
-                  className="mt-1"
+                  className="mt-1 item"
                   type="password"
                   placeholder="Digite sua senha novamente"
                 />

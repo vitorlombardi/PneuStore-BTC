@@ -33,3 +33,11 @@
 	}
 
 }
+
+@media (max-width: 500px) {
+	.item-cart {
+		.close{
+			position: relative;
+		}
+	}
+}

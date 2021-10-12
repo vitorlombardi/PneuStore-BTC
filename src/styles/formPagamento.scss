@@ -1,19 +1,23 @@
 $color-default: #4e008e;
 
-.form-pagamento{
+.form-pagamento {
+  .CVV {
+    margin-left: 2rem;
+    width: 100%;
+  }
 
-    .CVV{
-        margin-left: 2rem;
-        width: 100%;
-    }
+  .botao {
+    width: 13rem;
+    border-radius: 0.5rem;
+    height: 2.4rem;
+    background-color: $color-default;
+    color: white;
+  }
+}
 
-    .botao{
-        width: 13rem;
-        border-radius: 0.5rem;
-        height: 2.4rem;
-        background-color: $color-default;
-		color: white;
-    }
-
-
+@media (max-width: 500px) {
+  .form-pagamento {
+    display: flex;
+    flex-direction: column;
+  }
 }

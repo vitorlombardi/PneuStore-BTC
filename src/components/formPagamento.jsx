@@ -24,7 +24,7 @@ export default function FormPagamento({setResumo, setPagamento}) {
                             <input className='mt-1' type="number" required
                             />
                         </div>
-                        <div className=' d-flex flex-row mt-3'>
+                        <div className=' d-flex flex-row mt-3 vencimento-cvv'>
                             <div className='d-flex flex-column mt-3'>
                                 <label htmlFor="">Vencimento</label>
                                 <input className='mt-1' type="text" placeholder='MM/AA'  required/>

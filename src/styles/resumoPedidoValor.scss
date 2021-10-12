@@ -1,9 +1,5 @@
 .resumo-pedido {
-  margin-top: 1rem;
   margin-bottom: 1rem;
-  border-top: 1px solid rgb(221, 221, 221);
-  width: 27rem;
-  padding: 2rem;
 
   .tipo-pedido {
     justify-content: space-between;
@@ -20,5 +16,22 @@
 
   & span {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .resumo-pedido {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding-left: 0.5rem;
+    width: auto;
+    align-items: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .tipo-pedido {
+    max-width: 300px;
+    align-items: center;
   }
 }

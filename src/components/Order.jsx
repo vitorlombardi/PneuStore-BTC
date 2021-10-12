@@ -1,5 +1,6 @@
 import ItemCarrinho from "./ItemCarrinho";
 import '../styles/order.scss'
+import React from "react";
 
 export default function Order() {
 	return (

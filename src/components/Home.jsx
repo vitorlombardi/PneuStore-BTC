@@ -13,6 +13,7 @@ import ItemCarrinho from "./ItemCarrinho";
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import PneuList from "./PneuList";
+import ProgressBar from "./FormAccount/ProgressBar";
 
 export default function Home() {
   const [conta, setConta] = useState(true);
@@ -20,56 +21,54 @@ export default function Home() {
   const [entrega, setEntrega] = useState(false);
   const [resumo, setResumo] = useState(false);
 
+  const [Render, setRender] = useState(undefined);
 
-  const [Render, setRender]= useState(undefined)
-
-
-  useEffect(()=>{
+  useEffect(() => {
     const render = () => {
-
       if (entrega) {
         return <Entrega setPagamento={setPagamento} setEntrega={setEntrega} />;
       }
-  
+
       if (pagamento) {
-        return <FormPagamento setResumo={setResumo} setPagamento={setPagamento} />;
+        return (
+          <FormPagamento setResumo={setResumo} setPagamento={setPagamento} />
+        );
       }
-  
+
       if (resumo) {
         return <Resumo />;
-      } 
-      
-      else {
+      } else {
         return <FormAccount setEntrega={setEntrega} />;
       }
-  
-     
     };
-    setRender(render)
-  },[entrega, pagamento, resumo])
+    setRender(render);
+  }, [entrega, pagamento, resumo]);
 
   return (
     <>
-      <Row>
-        <Header />
-      </Row>
+      <div>
+          <Header />
+      </div>
       <div className="display">
         <Container className="mt-4">
-          <Row>
-            <Col md="8">
-              {/* <FormAccount />  */}
-              {/* <FormPagamento/> */}
-              {/* <Entrega /> */}
-              {/* <Resumo/> */}
-              {/* {Render} */}
-              <PneuList />
-            </Col>
+          <div className="bar">
+            <ProgressBar />
+          </div>
+          <Row className="display-row">
+              <Col >
+                <FormAccount /> 
+                {/* <FormPagamento/> */}
+                {/* <Entrega /> */}
+                {/* <Resumo/> */}
+                {/* {Render} */}
+                {/* <PneuList /> */}
+              </Col>
 
-            {/* <Col className="infos" md="4">
-              <Order />
-              <Cupom />
-              <ResumoPedidoValor />
-            </Col> */}
+              <Col className="infos">
+                <Order />
+                <Cupom />
+                <ResumoPedidoValor />
+              </Col>
           </Row>
         </Container>
       </div>

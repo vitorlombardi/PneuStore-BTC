@@ -1,14 +1,12 @@
 import React from 'react'
 import '../styles/resumo.scss'
-import ProgressBar from './FormAccount/ProgressBar'
 
 
 export default function Resumo(){
 
     return(
         <>
-            <ProgressBar />
-            <div className='mr-3 resumo'>
+            <div className='resumo'>
                 <h3 className='fw-bold'>Resumo da compra</h3>
                 
                 <div className='cards-resumo'>

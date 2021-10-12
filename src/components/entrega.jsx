@@ -1,6 +1,5 @@
 import "../styles/entrega.scss";
 import { useState } from "react";
-import ProgressBar from "./FormAccount/ProgressBar";
 import React from "react";
 import ModalMontagemCasa from "./modal/modalMontagemCasa";
 import ModalEntregaCasa from "./modal/ModalEntregaCasa";
@@ -28,7 +27,6 @@ export default function Entrega({setPagamento, setEntrega}) {
 
   return (
     <div>
-      <ProgressBar />
       {/* <div className="d-flex flex-column escolha-itens">
           <h3 className="fw-bold">Escolha uma opção de entrega </h3>
 
@@ -52,7 +50,7 @@ export default function Entrega({setPagamento, setEntrega}) {
             </div>
           </div>
           </div> */}
-      <form className="col-12 col-lg-8 ">
+      <form className="col-12">
         <div className="d-flex flex-column escolha-itens">
           <h3 className="fw-bold">Escolha uma opção de entrega </h3>
 

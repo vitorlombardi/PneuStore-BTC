@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/formPagamento.scss'
-import ProgressBar from './FormAccount/ProgressBar'
 
 export default function FormPagamento({setResumo, setPagamento}) {
 
@@ -11,7 +10,6 @@ export default function FormPagamento({setResumo, setPagamento}) {
     }
     return(
         <>
-            <ProgressBar />
             <div className='form-pagamento'>
                 <form className='col-12 col-lg-8 '>
                     <div className=' d-flex flex-column'>

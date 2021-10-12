@@ -1,8 +1,28 @@
 .display {
-	border-top: 1px solid rgb(221, 221, 221);
-	margin-top: 3rem;
+  border-top: 1px solid rgb(221, 221, 221);
+  margin-top: 3rem;
 
-	.infos {
-		border-left: 1px solid rgb(221, 221, 221);
-	}
+  .bar {
+    max-width: 840px;
+  }
+
+  .infos {
+    border-left: 1px solid rgb(221, 221, 221);
+  }
+}
+
+@media (max-width: 991px) {
+  .display {
+    .bar {
+      max-width: 560px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .display-row {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }

@@ -15,7 +15,7 @@ export default function Cupom() {
 	return (
 		<div className='cupom'>
 			<form action="" onSubmit={handleSubmit}>
-				<label htmlFor="">Código de desconto</label>
+				<label htmlFor="" className="cupom-label">Código de desconto</label>
 				<div className="field">
 					<input type="text" name="cupom" placeholder="Insira seu cupom de desconto" />
 					<button type="submit" className="cupom-button">Aplicar</button>

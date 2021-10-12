@@ -33,22 +33,20 @@ hr {
 
 @media (max-width: 500px) {
   .cupom {
-    padding-left: 0.5rem;
-    align-items: center;
-    display: flex;
-    justify-content: center;
     width: auto;
-  }
-}
+    .cupom-label {
+      display: flex;
+      justify-content: center;
+    }
 
-@media (max-width: 500px) {
-  .cupom {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    .field {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-    .cupom-button{
+    .cupom-button {
       margin-top: 1rem;
     }
   }

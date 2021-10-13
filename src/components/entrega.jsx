@@ -3,10 +3,11 @@ import { useState } from "react";
 import React from "react";
 import ModalMontagemCasa from "./modal/modalMontagemCasa";
 import ModalEntregaCasa from "./modal/ModalEntregaCasa";
+import { ViaCep } from "../Api/ViaCep";
 
 export default function Entrega({setPagamento, setEntrega}) {
-  
   const [CEP, setCEP] = useState(false);
+  const [endereco, setEndereco] = useState(undefined)
 
   const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
   const [openModaEntregaCasa, setOpenModaEntregaCasa] = useState(false);
@@ -18,13 +19,28 @@ export default function Entrega({setPagamento, setEntrega}) {
     setEntrega(false)
   }
 
-  const handleClickButtonCEP = (e) => {
+  const handleClickButtonCEP = async (e) => {
     e.preventDefault()
 
+    const cep = e.target.cep.value;
+
+    const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
+
+    const resultado =  await res.json();
+
+    if(resultado.erro){
+      return(
+        alert("CEP inválido")
+      )
+    }
+
+    setEndereco(resultado)
     setCEP(true)
   }
-  console.log(openModaEntregaCasa)
 
+  console.log(endereco)
+
+  
   return (
     <div>
       {/* <div className="d-flex flex-column escolha-itens">
@@ -50,7 +66,7 @@ export default function Entrega({setPagamento, setEntrega}) {
             </div>
           </div>
           </div> */}
-      <form className="col-12">
+      <form className="col-12" onSubmit={handleClickButtonCEP}>
         <div className="d-flex flex-column escolha-itens">
           <h3 className="fw-bold">Escolha uma opção de entrega </h3>
 
@@ -59,17 +75,17 @@ export default function Entrega({setPagamento, setEntrega}) {
             <div className="d-flex flex-row input">
               <input
                 type="number"
-                name="CEP"
+                name="cep"
                 placeholder="Insira seu CEP"
                 required
               />
 
-              <span
+              <button
                 className="button-cep"
-                onClick={handleClickButtonCEP}
+                
               >
                 Calcular entrega
-              </span>
+              </button>
 
             </div>
           </div>

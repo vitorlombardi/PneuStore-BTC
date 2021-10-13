@@ -1,6 +1,11 @@
 $color-default: #4e008e;
 
 .form-pagamento {
+
+
+  .vencimento-cvv{
+    align-items: baseline;
+  }
   .CVV {
     margin-left: 2rem;
     width: 100%;
@@ -17,7 +22,13 @@ $color-default: #4e008e;
 
 @media (max-width: 500px) {
   .form-pagamento {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
+
+    .CVV {
+      margin-left: 0;
+      width: 100%;
+    }
   }
 }

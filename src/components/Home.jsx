@@ -56,11 +56,11 @@ export default function Home() {
           </div>
           <Row className="display-row">
               <Col >
-                <FormAccount /> 
+                {/* <FormAccount />  */}
                 {/* <FormPagamento/> */}
                 {/* <Entrega /> */}
                 {/* <Resumo/> */}
-                {/* {Render} */}
+                {Render}
                 {/* <PneuList /> */}
               </Col>
 

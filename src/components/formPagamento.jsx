@@ -27,7 +27,7 @@ export default function FormPagamento({ setResumo, setPagamento }) {
               <label htmlFor="">Número do cartão</label>
               <input className="mt-1" type="number" required />
             </div>
-            <div className=" d-flex flex-row mt-3 vencimento-cvv">
+            <div className="d-flex flex-column mt-3 vencimento-cvv">
               <div className="d-flex flex-column mt-3">
                 <label htmlFor="">Vencimento</label>
                 <input
@@ -40,7 +40,7 @@ export default function FormPagamento({ setResumo, setPagamento }) {
 
               <div className="d-flex flex-column mt-3 CVV">
                 <label htmlFor="">CVV</label>
-                <input className="mt-1" type="number" required />
+                <input className="mt-1 cvv-input" type="number" required />
               </div>
             </div>
             <div className="mt-3 d-flex flex-column">

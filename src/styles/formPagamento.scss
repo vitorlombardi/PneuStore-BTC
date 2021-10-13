@@ -29,6 +29,10 @@ $color-default: #4e008e;
     .CVV {
       margin-left: 0;
       width: 100%;
+
+      .cvv-input{
+        width: 13rem;
+      }
     }
   }
 }

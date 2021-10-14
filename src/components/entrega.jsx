@@ -8,7 +8,6 @@ import MaskedInput from "react-text-mask";
 
 export default function Entrega({ setPagamento, setEntrega }) {
   const [CEP, setCEP] = useState(false);
-  const [cepReq, setCepReq] = useState([]);
   const [endereco, setEndereco] = useState(undefined);
 
   const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
@@ -31,7 +30,6 @@ export default function Entrega({ setPagamento, setEntrega }) {
     }
 
     const cep = cepInput.replace("-", "");
-    console.log(cep);
 
     const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
     try {
@@ -136,7 +134,7 @@ export default function Entrega({ setPagamento, setEntrega }) {
                 >
                   <h5 className="card-header">Entregar no meu endereço</h5>
                   <div className="card-body">
-                    <h5 className="card-title">Norma</h5>
+                    <h5 className="card-title">Normal</h5>
                     <div className="d-flex flex-row justify-content-between">
                       <p className="card-text">De 4 a 7 dias úteis</p>
                       <p className="card-text">R$34,90</p>

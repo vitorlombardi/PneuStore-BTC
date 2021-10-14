@@ -4,94 +4,76 @@ import React from "react";
 import ModalMontagemCasa from "./modal/modalMontagemCasa";
 import ModalEntregaCasa from "./modal/ModalEntregaCasa";
 import { ViaCep } from "../Api/ViaCep";
+import MaskedInput from "react-text-mask";
 
-export default function Entrega({setPagamento, setEntrega}) {
+export default function Entrega({ setPagamento, setEntrega }) {
   const [CEP, setCEP] = useState(false);
-  const [endereco, setEndereco] = useState(undefined)
+  const [cepReq, setCepReq] = useState([]);
+  const [endereco, setEndereco] = useState(undefined);
 
   const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
   const [openModaEntregaCasa, setOpenModaEntregaCasa] = useState(false);
 
-  const [enderecoEscolhido, setEnderecoEscolhido]= useState(undefined);
+  const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
 
-  const handleClick = () =>{
-    setPagamento(true)
-    setEntrega(false)
-  }
+  const handleClick = () => {
+    setPagamento(true);
+    setEntrega(false);
+  };
 
-  const handleClickButtonCEP = async (e) => {
-    e.preventDefault()
+  const handleClickButtonCEPValida = async (e) => {
+    e.preventDefault();
 
-    const cep = e.target.cep.value;
+    const cepInput = e.target.cep.value;
 
-    const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
-
-    const resultado =  await res.json();
-
-    if(resultado.erro){
-      return(
-        alert("CEP inválido")
-      )
+    if (cepInput.length !== 9) {
+      return alert("CEP inválido");
     }
 
-    setEndereco(resultado)
-    setCEP(true)
-  }
+    const cep = cepInput.replace("-", "");
+    console.log(cep);
 
-  console.log(endereco)
+    const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
+    try {
+      const resultado = await res.json();
+      console.log(resultado);
 
-  
+      if (resultado.erro) {
+        return alert("CEP inválido");
+      }
+
+      setEndereco(resultado);
+      setCEP(true);
+
+    } catch (error) {
+      console.log({ error: error });
+      alert("CEP inválido");
+    }
+  };
+
   return (
     <div>
-      {/* <div className="d-flex flex-column escolha-itens">
-          <h3 className="fw-bold">Escolha uma opção de entrega </h3>
-
-          <div className=" d-flex flex-column mt-5">
-            <label>Informe o seu CEP</label>
-            <div className="d-flex flex-row input">
-              <input
-                type="number"
-                name="CEP"
-                placeholder="Insira seu CEP"
-                required
-              />
-
-              <button
-                className="button-cep"
-                onClick={e => setCEP(true)}
-              >
-                Calcular entrega
-              </button>
-
-            </div>
-          </div>
-          </div> */}
-      <form className="col-12" onSubmit={handleClickButtonCEP}>
+      <form className="col-12" onSubmit={handleClickButtonCEPValida}>
         <div className="d-flex flex-column escolha-itens">
           <h3 className="fw-bold">Escolha uma opção de entrega </h3>
 
           <div className=" d-flex flex-column mt-5">
             <label>Informe o seu CEP</label>
             <div className="d-flex flex-row input">
-              <input
-                type="number"
+
+              <MaskedInput
+                guide={false}
+                mask={[/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
+                type="text"
                 name="cep"
-                placeholder="Insira seu CEP"
-                required
+                placeholder={"Digite o cep"}
               />
 
-              <button
-                className="button-cep"
-                
-              >
-                Calcular entrega
-              </button>
-
+              <button className="button-cep">Calcular entrega</button>
             </div>
           </div>
 
           <div className="w-full flex justify-between items-center">
-
             {CEP ? (
               <div>
                 <h3 className="fw-bold mt-5">Tipos de entrega disponíveis</h3>
@@ -105,29 +87,34 @@ export default function Entrega({setPagamento, setEntrega}) {
                     <h5 className="card-title">
                       Agende sua entrega com a PneuStore Móvel
                     </h5>
-                    {
-                    enderecoEscolhido?<div><p>endereço:rua teste 176</p></div> 
-                    : <p className="card-text">Confira opções</p>
-                    } 
+                    {enderecoEscolhido ? (
+                      <div>
+                        <p>endereço:rua teste 176</p>
+                      </div>
+                    ) : (
+                      <p className="card-text">Confira opções</p>
+                    )}
                   </div>
-                  
                 </div>
 
-                <ModalMontagemCasa 
-                open={openModaMontagemCasa} 
-                setOpen={setOpenModaMontagemCasa}
-                setEnderecoEscolhido={setEnderecoEscolhido}
-                onClose={ () => setOpenModaMontagemCasa(false) } 
+                <ModalMontagemCasa
+                  open={openModaMontagemCasa}
+                  setOpen={setOpenModaMontagemCasa}
+                  setEnderecoEscolhido={setEnderecoEscolhido}
+                  onClose={() => setOpenModaMontagemCasa(false)}
                 />
 
                 <ModalEntregaCasa
-                open={openModaEntregaCasa}
-                setOpen={setOpenModaEntregaCasa}
-                setEnderecoEscolhido={setEnderecoEscolhido}
-                onClose={ () => setOpenModaEntregaCasa(false) } 
+                  open={openModaEntregaCasa}
+                  setOpen={setOpenModaEntregaCasa}
+                  setEnderecoEscolhido={setEnderecoEscolhido}
+                  onClose={() => setOpenModaEntregaCasa(false)}
                 />
 
-                <div className="card mt-3 card-entrega" onClick={() => alert("Serviço invalido")}>
+                <div
+                  className="card mt-3 card-entrega"
+                  onClick={() => alert("Serviço invalido")}
+                >
                   <h5 className="card-header">
                     Entregar e montar em um Centro de Montagem
                   </h5>
@@ -143,7 +130,10 @@ export default function Entrega({setPagamento, setEntrega}) {
                   </div>
                 </div>
 
-                <div className="card mt-3 card-entrega" onClick={() => setOpenModaEntregaCasa(true)}>
+                <div
+                  className="card mt-3 card-entrega"
+                  onClick={() => setOpenModaEntregaCasa(true)}
+                >
                   <h5 className="card-header">Entregar no meu endereço</h5>
                   <div className="card-body">
                     <h5 className="card-title">Norma</h5>
@@ -155,7 +145,7 @@ export default function Entrega({setPagamento, setEntrega}) {
                 </div>
 
                 <div className="mt-3 mb-3 d-flex justify-content-center">
-                  <button onClick={handleClick}  className="button-cep">
+                  <button onClick={handleClick} className="button-cep">
                     Continuar
                   </button>
                 </div>

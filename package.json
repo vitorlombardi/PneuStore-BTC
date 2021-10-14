@@ -17,6 +17,7 @@
     "react-portal-overlay": "^1.1.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "react-text-mask": "^5.4.3",
     "reactstrap": "^8.10.0",
     "sass": "^1.42.1",
     "web-vitals": "^1.0.1"

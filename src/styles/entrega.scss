@@ -39,3 +39,10 @@ $color-default: #4e008e;
         cursor: pointer;
     }
 }
+
+@media (max-width: 767px) {
+	.escolha-itens{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+}

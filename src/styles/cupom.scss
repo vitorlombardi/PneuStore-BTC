@@ -1,9 +1,10 @@
 $color-default: #4e008e;
-$color-secondary:#68dcfa;
+$color-secondary: #68dcfa;
 
 .cupom {
   border-top: 1px solid rgb(221, 221, 221);
-  width: 27rem;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  width: 26.6rem;
   padding: 1.5rem;
 
   .cupom-button {
@@ -15,19 +16,38 @@ $color-secondary:#68dcfa;
     background-color: white;
   }
 
-  .cupom-button:hover{
-		color: #8aac03;
-		background-color: $color-default;
-		color: white;
-	}
-
-  
+  .cupom-button:hover {
+    color: #8aac03;
+    background-color: $color-default;
+    color: white;
+  }
 
   & input {
     width: 16rem;
   }
 }
 
-hr{
-	width: 27rem;
+hr {
+  width: 27rem;
+}
+
+@media (max-width: 500px) {
+  .cupom {
+    width: auto;
+    .cupom-label {
+      display: flex;
+      justify-content: center;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cupom-button {
+      margin-top: 1rem;
+    }
+  }
 }

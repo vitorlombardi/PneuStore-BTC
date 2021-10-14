@@ -1,19 +1,38 @@
 $color-default: #4e008e;
 
-.form-pagamento{
+.form-pagamento {
 
-    .CVV{
-        margin-left: 2rem;
-        width: 100%;
-    }
 
-    .botao{
+  .vencimento-cvv{
+    align-items: baseline;
+  }
+  .CVV {
+    margin-left: 2rem;
+    width: 100%;
+  }
+
+  .botao {
+    width: 13rem;
+    border-radius: 0.5rem;
+    height: 2.4rem;
+    background-color: $color-default;
+    color: white;
+  }
+}
+
+@media (max-width: 500px) {
+  .form-pagamento {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    .CVV {
+      margin-left: 0;
+      width: 100%;
+
+      .cvv-input{
         width: 13rem;
-        border-radius: 0.5rem;
-        height: 2.4rem;
-        background-color: $color-default;
-		color: white;
+      }
     }
-
-
+  }
 }

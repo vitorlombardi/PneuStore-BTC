@@ -1,6 +1,7 @@
 .header {
 	padding: 2rem 0;
 	background-color:#4e008e;
+	width: 100%;
 
 	.logo {
 
@@ -15,6 +16,26 @@
 		input{
 			width: 80%;
 			margin-left: 2rem;
+		}
+	}
+}
+
+@media (max-width: 540px) {
+	.header{
+		.logo {
+
+			img {
+				max-width: 100px;
+			}
+		}
+
+		.search {
+			width: 100%;
+			
+			input{
+				width: 70%;
+				margin-left: 1rem;
+			}
 		}
 	}
 }

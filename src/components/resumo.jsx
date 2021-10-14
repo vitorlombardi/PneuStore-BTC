@@ -1,14 +1,12 @@
 import React from 'react'
 import '../styles/resumo.scss'
-import ProgressBar from './FormAccount/ProgressBar'
 
 
 export default function Resumo(){
 
     return(
         <>
-            <ProgressBar />
-            <div className='mr-3 resumo'>
+            <div className='resumo'>
                 <h3 className='fw-bold'>Resumo da compra</h3>
                 
                 <div className='cards-resumo'>
@@ -33,7 +31,7 @@ export default function Resumo(){
                     </div>
                 
                     <div className='info mt-3 pagamento'>
-                        <span><b>detalhes do pagamento</b></span>
+                        <span><b>Detalhes do pagamento</b></span>
                         <div className="d-flex flex-column">
                             <span>(Crédito) Visa ****9999</span>
                             <span>Nome: Jorginho Silva</span>
@@ -42,7 +40,7 @@ export default function Resumo(){
                     </div>
 
                     <div className='info mt-3 itens'>
-                        <span><b>produtos comprados:</b></span>
+                        <span><b>Produtos comprados:</b></span>
                         <div className='d-flex flex-row '>
                             <span>Pneu Continental aro '16  * 205/55R16 91w run flat</span>
                             <span>x</span>

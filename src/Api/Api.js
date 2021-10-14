@@ -1,5 +1,5 @@
 export const Api = {
-    baseURL: "https://pneustore.azurewebsites.net",
+    baseURL: "https://equipe2-pneustore.azurewebsites.net",
 
     //url get
     readAllTyreUrl: () => Api.baseURL + "/Tyre",

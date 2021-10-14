@@ -3,3 +3,21 @@
     padding: 1rem;
 	padding-left: 2rem;
 }
+
+@media (max-width: 767px) {
+	.order{
+        padding-right: 3rem;
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+	.order{
+        width: auto;
+        padding-right: 0rem;
+        max-width: 300px;
+        margin-left: 0;
+        padding-left: 0;
+        align-items: center;
+    }
+}

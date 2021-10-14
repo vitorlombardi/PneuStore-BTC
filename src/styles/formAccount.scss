@@ -1,70 +1,102 @@
 $color-default: #4e008e;
-$color-red: #A10D13;
+$color-red: #a10d13;
 
 @keyframes appear {
-	from {
-		transform: translateX(-100px);
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-};
-
-.form-account {
-	animation: appear 700ms;
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-form{
+.form-account {
+  animation: appear 700ms;
+}
 
-	& input {
-		outline: none;
-		border: none;
-		background-color: rgb(235, 235, 235);
-		padding: 0.3rem 0.5rem;
-		font-weight: 600;
-		border-radius: 0.2rem;
+form {
+  & input {
+    outline: none;
+    border: none;
+    background-color: rgb(235, 235, 235);
+    padding: 0.3rem 0.5rem;
+    font-weight: 600;
+    border-radius: 0.2rem;
 
-		&::placeholder {
-			font-weight: lighter;
-		}
-	}
+    &::placeholder {
+      font-weight: lighter;
+    }
+  }
 
-	& label {
-		font-weight: bold;
-		color: rgb(98, 98, 98);
-	}
+  & label {
+    font-weight: bold;
+    color: rgb(98, 98, 98);
+  }
 
-	& button.submit {
-		outline: none;
-		border: none;
-		background-color: $color-default;
-		color: white;
-		padding: 0.2rem 0.5rem;
-		border-radius: 0.2rem;
-	}
+  & button.submit {
+    outline: none;
+    border: none;
+    background-color: $color-default;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2rem;
+  }
 
-	.create-account {
-		text-decoration: underline;
+  .create-account {
+    text-decoration: underline;
 
-		&:hover {
-			cursor: pointer;
-		}
-	}
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-	.back {
-		border: none;
-		padding: 0.2rem ;
-		margin: 0 auto;
-		margin-top: 1rem;
-		width: 100px;
-		background-color: gray;
-		color: white;
-		border-radius: 0.2rem;
+  .back {
+    border: none;
+    padding: 0.2rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 100px;
+    background-color: gray;
+    color: white;
+    border-radius: 0.2rem;
 
-		&:hover {
-			cursor: pointer;
-		}
-	}
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .form{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-cria{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-account{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-itens{
+    margin-top: 0;
+    max-width: 300px;
+    margin-top: 1rem;
+  }
+
+  .input-item {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item{
+    margin-top: 0;
+  }
 }

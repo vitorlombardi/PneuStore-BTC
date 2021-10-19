@@ -1,11 +1,11 @@
 import React from 'react'
 import '../../styles/progressBar.scss'
 
-export default function ProgressBar() {
+export default function ProgressBar({idBar}) {
 	return (
 		<div className='bar-progress d-flex justify-content-between col-12 col-lg-8 mb-5 mt-3'>
 			<div className="line">
-				<div className="line-fill"></div>
+			<div className={`line-fill-${idBar}`}></div>
 			</div>
 			<div className="step">
 				<div className="point point-1">1</div>

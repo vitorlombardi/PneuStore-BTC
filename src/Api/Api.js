@@ -4,7 +4,7 @@ export const Api = {
     //url get
     readAllTyreUrl: () => Api.baseURL + "/Tyre",
     readSingleTyreUrl: (id) => Api.baseURL + `/Tyre/${id}`,
-    readClient: () => Api.baseURL + "Client",
+    readClient: () => Api.baseURL + "/Client",
 
     //url post
     creatClientUrl: () => Api.baseURL + "/Client",

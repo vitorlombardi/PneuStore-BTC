@@ -8,7 +8,7 @@ $color-default: #4e008e;
   }
   .CVV {
     margin-left: 2rem;
-    width: 100%;
+    width: 8rem;
   }
 
   .botao {
@@ -27,12 +27,27 @@ $color-default: #4e008e;
     flex-direction: column;
 
     .CVV {
-      margin-left: 0;
+      margin-left: 0.5rem;
       width: 100%;
 
       .cvv-input{
         width: 13rem;
       }
     }
+  }
+}
+
+@media (max-width: 440px) {
+  .form-pagamento {
+
+    .vencimento-cvv{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .CVV {
+      margin-left: 0;
+    }
+    
   }
 }

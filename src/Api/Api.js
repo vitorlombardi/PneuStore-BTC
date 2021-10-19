@@ -4,6 +4,7 @@ export const Api = {
     //url get
     readAllTyreUrl: () => Api.baseURL + "/Tyre",
     readSingleTyreUrl: (id) => Api.baseURL + `/Tyre/${id}`,
+    readClient: () => Api.baseURL + "/Client",
 
     //url post
     creatClientUrl: () => Api.baseURL + "/Client",
@@ -19,7 +20,12 @@ export const Api = {
     },
 
     // Funções de Requisição
-    buildAppGetRequest: (url, auth) => 
+    buildAppGetRequest: (url,) => 
+    fetch(url, { 
+        method: "GET" ,
+    }),
+
+    buildAppGetRequestToken: (url, auth) => 
     fetch(url, { 
         method: "GET" ,
         headers: auth ? new Headers({ ...Api.authHeader }) : undefined,

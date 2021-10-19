@@ -19,7 +19,7 @@ export default function ItemCarrinho() {
 				<span type="number" className='quant-item' disabled >1</span>
 				<button className='add-item'>+</button>
 				<span> x </span>
-				<span>R$350,00</span>
+				<span>R$ 350,00</span>
 			</div>
 		</div>
 	)

@@ -1,10 +1,11 @@
 import React from "react";
 import "../styles/formPagamento.scss";
 
-export default function FormPagamento({ setResumo, setPagamento }) {
+export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
   const handleClick = () => {
     setPagamento(false);
     setResumo(true);
+    setIdbar("3")
   };
 
   const handleClickParcelamento = (e) => {
@@ -17,7 +18,7 @@ export default function FormPagamento({ setResumo, setPagamento }) {
       <div className="form-pagamento">
         <form className="col-12 col-lg-8 ">
           <div className=" d-flex flex-column">
-            <h3 className="fw-bold">detalhes do pagamento</h3>
+            <h3 className="fw-bold">Detalhes do pagamento</h3>
             <div className="d-flex flex-column mt-3">
               <label htmlFor="">Nome do titular</label>
               <input className="mt-1" type="text" required />
@@ -27,7 +28,7 @@ export default function FormPagamento({ setResumo, setPagamento }) {
               <label htmlFor="">Número do cartão</label>
               <input className="mt-1" type="number" required />
             </div>
-            <div className="d-flex flex-column mt-3 vencimento-cvv">
+            <div className="d-flex mt-3 vencimento-cvv">
               <div className="d-flex flex-column mt-3">
                 <label htmlFor="">Vencimento</label>
                 <input
@@ -44,7 +45,7 @@ export default function FormPagamento({ setResumo, setPagamento }) {
               </div>
             </div>
             <div className="mt-3 d-flex flex-column">
-                <p>opções de parcelamento</p>
+                <p>Opções de parcelamento</p>
               <select 
               className="form-select" 
               aria-label="Default select example" 

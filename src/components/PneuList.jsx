@@ -10,7 +10,7 @@ export default function PneuList() {
 
   useEffect(() => {
     const loadData = async () => {
-      const response = await Api.buildAppGetRequest(Api.readAllTyreUrl(), true);
+      const response = await Api.buildAppGetRequest(Api.readAllTyreUrl());
 
       const result = await response.json();
 

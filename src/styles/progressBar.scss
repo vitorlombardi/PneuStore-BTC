@@ -42,9 +42,45 @@ $color-secondary:#68dcfa;
 			width: 90%;
 		}
 
-		.line-fill {
+		.line-fill-0 {
+			position: relative;
+			width: calc((525px / 3) * 0);
+			height: 3px;
+			background-color: $color-secondary;
+
+			@media screen and (max-width: 768px) {
+				width: calc((100% / 3) * 1);
+
+			}
+		}
+
+		.line-fill-1 {
 			position: relative;
 			width: calc((525px / 3) * 1);
+			height: 3px;
+			background-color: $color-secondary;
+
+			@media screen and (max-width: 768px) {
+				width: calc((100% / 3) * 1);
+
+			}
+		}
+
+		.line-fill-2 {
+			position: relative;
+			width: calc((525px / 3) * 2);
+			height: 3px;
+			background-color: $color-secondary;
+
+			@media screen and (max-width: 768px) {
+				width: calc((100% / 3) * 1);
+
+			}
+		}
+
+		.line-fill-3 {
+			position: relative;
+			width: calc((525px / 3) * 3);
 			height: 3px;
 			background-color: $color-secondary;
 

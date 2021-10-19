@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import MaskedInput from "react-text-mask";
 
 import { Api } from "../../Api/Api";
 import "../../styles/formAccount.scss";
 
-export default function FormAccount({ setEntrega }) {
+export default function FormAccount({ setEntrega, setIdbar }) {
   const [registrar, setRegistrar] = useState(false);
 
   const handleSubmitToken = async (e) => {
@@ -18,53 +19,122 @@ export default function FormAccount({ setEntrega }) {
       passwordHash,
     };
 
-    console.log(payloadToken);
+    try{
+      const response = await Api.buildApiPostRequest(
+        Api.tokenAuthUrl(),
+        payloadToken
+      );
 
-    const response = await Api.buildApiPostRequest(
-      Api.tokenAuthUrl(),
-      payloadToken
-    );
-    const bodyResponse = await response.json();
-    console.log(bodyResponse);
+      console.log(response);
+
+      const bodyRes = await response.json();
+      if (!bodyRes.succeed) {
+        return alert("Email ou senha invalidos");
+      }
+
+      console.log(bodyRes);
+      localStorage.setItem("Jwt", bodyRes.message)
+      localStorage.setItem("Login", JSON.stringify(payloadToken))
+      
+
+    } catch (error) {
+      console.log({ error: error });
+      return alert("Falha ao fazer login confira os dados e tente de novo")
+    }
+
+    
+
+    setEntrega(true);
+    setIdbar("1")
   };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const name = e.target.nomeCompleto.value;
-    const cpf = e.target.cpf.value;
+    const CPf = e.target.cpf.value;
     const birthDate = e.target.data.value;
     const email = e.target.email.value;
-    const phone = e.target.telefone.value;
+    const userName = email;
+    const telefone = e.target.telefone.value;
     const passwordHash = e.target.senha.value;
+    const confirmPasswordHash = e.target.confirmarSenha.value;
+
+    const cpf = CPf
+    .replace(".", "")
+    .replace(".", "")
+    .replace("-", "");
+    const phone = telefone
+      .replace("(", "")
+      .replace(")", "")
+      .replace(" ", "")
+      .replace("-", "");
+
+    if (passwordHash !== confirmPasswordHash) {
+      return alert("As senhas estão diferentes");
+    }
+
+    if (!regex.test(passwordHash)) {
+      return alert(
+        "A senha deve conter no mínimo 8 caracteres \n" +
+          "A senha deve ter no mínimo uma letra maiúscula e minúscula \n" +
+          "A senha deve ter no mínimo um caractere especial \n"
+      );
+    }
 
     const payload = {
       name,
       cpf,
       birthDate,
-      email,
       phone,
     };
 
     const payloadRegister = {
-      email,
+      userName,
       passwordHash,
     };
 
-    const response = await Api.buildApiPostRequest(
-      Api.creatClientUrl(),
-      payload
-    );
-    const bodyResponse = await response.json();
-    console.log(bodyResponse);
+    console.log(payloadRegister);
 
-    const res = await Api.buildApiPostRequest(
-      Api.registerAuthUrl(),
-      payloadRegister
-    );
-    const bodyResponseRegister = await res.json();
-    console.log(bodyResponseRegister);
+    try{
+      const res = await Api.buildApiPostRequest(
+        Api.registerAuthUrl(),
+        payloadRegister
+      );
+      const bodyResponseRegister = await res.json();
+      console.log(bodyResponseRegister);
+  
+      if (bodyResponseRegister.succeed === false) {
+        return alert("Falha ao registrar, confira seus dados ");
+      }
+    }catch (error) {
+      console.log({ error: error });
+      return alert("Falha ao registrar");
+    }
+
+    try{
+      const response = await Api.buildApiPostRequest(
+        Api.creatClientUrl(),
+        payload
+      );
+      const bodyResponse = await response.json();
+      console.log(bodyResponse);
+  
+      if (bodyResponse.succeed === false) {
+        return alert("Falha ao registrar, confira seus dados ");
+      }
+
+    }catch (error) {
+      console.log({ error: error });
+      return alert("Falha ao registrar");
+    }
+
+    setRegistrar(false);
   };
+
+  
 
   return (
     <div className="form-account">
@@ -73,18 +143,16 @@ export default function FormAccount({ setEntrega }) {
           <div className=" d-flex flex-column form-itens">
             <h3 className="fw-bold">Entrar</h3>
             <p>É necessário estar logado para finalizar a compra.</p>
-
-            {/* <Alert color='danger'>Erro ao criar conta</Alert> */}
-
             <div className="d-flex flex-column mt-1">
               <label className="label" htmlFor="">
-                Nome de usuário
+                Email
               </label>
               <input
                 name="nome"
                 className="mt-1"
-                type="text"
-                placeholder="Digite seu nome de usuário"
+                type="email"
+                placeholder="Digite seu Email"
+                required
               />
             </div>
 
@@ -95,11 +163,11 @@ export default function FormAccount({ setEntrega }) {
                 className="mt-1"
                 type="password"
                 placeholder="Digite sua senha"
+                required
               />
             </div>
 
             <button
-              onClick={(e) => setEntrega(true)}
               className="mt-3 submit"
               type="submit"
             >
@@ -117,7 +185,10 @@ export default function FormAccount({ setEntrega }) {
           </div>
         </form>
       ) : (
-        <form className="col-12 col-lg-8 pb-5 form-cria" onSubmit={handleSubmitRegister}>
+        <form
+          className="col-12 col-lg-8 pb-5 form-cria"
+          onSubmit={handleSubmitRegister}
+        >
           <div className="d-flex flex-column form-itens">
             <h3 className="fw-bold">Criar conta</h3>
             <p>Crie uma conta para prosseguir com sua compra.</p>
@@ -131,17 +202,37 @@ export default function FormAccount({ setEntrega }) {
                 className="mt-1 item"
                 type="text"
                 placeholder="Digite seu nome de usuário"
+                required
               />
             </div>
 
             <div className="d-flex justify-content-between input-item">
               <div className="d-flex flex-column mt-3 w-100 me-2">
                 <label htmlFor="">CPF</label>
-                <input
+                <MaskedInput
+                  guide={false}
+                  mask={[
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    ".",
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    ".",
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    "-",
+                    /\d/,
+                    /\d/,
+                  ]}
+                  type="text"
                   name="cpf"
                   className="mt-1 item"
-                  type="text"
-                  placeholder="Digite seu cpf"
+                  placeholder={"Digite seu cpf"}
+                  required
+                  minLength={14}
                 />
               </div>
 
@@ -164,16 +255,37 @@ export default function FormAccount({ setEntrega }) {
                   className="mt-1 item"
                   type="email"
                   placeholder="O email que você mais usa"
+                  required
                 />
               </div>
 
               <div className="d-flex flex-column mt-3 w-100">
                 <label htmlFor="">Telefone</label>
-                <input
+                <MaskedInput
+                  guide={true}
+                  keepCharPositions={true}
+                  mask={[
+                    "(",
+                    /\d/,
+                    /\d/,
+                    ")",
+                    " ",
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    "-",
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                  ]}
+                  type="text"
                   name="telefone"
                   className="mt-1 item"
-                  type="text"
-                  placeholder="Telefone para contato"
+                  placeholder={"Telefone para contato"}
+                  required
                 />
               </div>
             </div>
@@ -186,6 +298,8 @@ export default function FormAccount({ setEntrega }) {
                   className="mt-1 item"
                   type="password"
                   placeholder="Digite sua senha"
+                  required
+                  minLength={8}
                 />
               </div>
 
@@ -196,12 +310,13 @@ export default function FormAccount({ setEntrega }) {
                   className="mt-1 item"
                   type="password"
                   placeholder="Digite sua senha novamente"
+                  required
                 />
               </div>
             </div>
 
             <button
-              onClick={(e) => setRegistrar(false)}
+              // onClick={(e) => setRegistrar(false)}
               className="mt-3 submit"
               type="submit"
             >

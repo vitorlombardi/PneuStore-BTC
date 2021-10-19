@@ -12,8 +12,9 @@ $color-secondary: #68dcfa;
     color: $color-default;
     border: 1px solid;
     border-color: $color-default;
-    border-radius: 0.5rem;
+    border-radius: 0.2rem;
     background-color: white;
+    padding: 0.2rem 0.5rem;
   }
 
   .cupom-button:hover {

@@ -6,7 +6,7 @@ import ModalEntregaCasa from "./modal/ModalEntregaCasa";
 import { ViaCep } from "../Api/ViaCep";
 import MaskedInput from "react-text-mask";
 
-export default function Entrega({ setPagamento, setEntrega }) {
+export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
   const [CEP, setCEP] = useState(false);
   const [endereco, setEndereco] = useState(undefined);
 
@@ -18,6 +18,7 @@ export default function Entrega({ setPagamento, setEntrega }) {
   const handleClick = () => {
     setPagamento(true);
     setEntrega(false);
+    setIdbar("2")
   };
 
   const handleClickButtonCEPValida = async (e) => {
@@ -31,8 +32,8 @@ export default function Entrega({ setPagamento, setEntrega }) {
 
     const cep = cepInput.replace("-", "");
 
-    const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
     try {
+      const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
       const resultado = await res.json();
       console.log(resultado);
 
@@ -42,7 +43,7 @@ export default function Entrega({ setPagamento, setEntrega }) {
 
       setEndereco(resultado);
       setCEP(true);
-
+      
     } catch (error) {
       console.log({ error: error });
       alert("CEP inválido");
@@ -58,13 +59,13 @@ export default function Entrega({ setPagamento, setEntrega }) {
           <div className=" d-flex flex-column mt-5">
             <label>Informe o seu CEP</label>
             <div className="d-flex flex-row input">
-
               <MaskedInput
                 guide={false}
                 mask={[/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
                 type="text"
                 name="cep"
                 placeholder={"Digite o cep"}
+                minLength={8}
               />
 
               <button className="button-cep">Calcular entrega</button>

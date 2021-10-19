@@ -13,6 +13,7 @@ import ItemCarrinho from "./ItemCarrinho";
 import React, { useEffect, useState } from "react";
 import PneuList from "./PneuList";
 import ProgressBar from "./FormAccount/ProgressBar";
+import { Api } from "Api/Api";
 
 
 
@@ -23,7 +24,10 @@ export default function Home() {
   const [entrega, setEntrega] = useState(false);
   const [resumo, setResumo] = useState(false);
   const [Render, setRender] = useState(undefined);
+  
   const [idBar, setIdbar] = useState("0")
+
+  const [dadosClient, setDadosCliente] = useState(undefined)
 
 
   useEffect(() => {
@@ -55,6 +59,12 @@ export default function Home() {
     }
     if(entrega){
       dadosLogin()
+      const dataCliente = async () => {
+        const response = await Api.buildAppGetRequestToken(Api.readClient(), true);
+        const result = await response.json();
+        console.log(result)
+      }
+      dataCliente()
     }
   }, [entrega]);
   

@@ -28,7 +28,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
               <label htmlFor="">Número do cartão</label>
               <input className="mt-1" type="number" required />
             </div>
-            <div className="d-flex flex-column mt-3 vencimento-cvv">
+            <div className="d-flex mt-3 vencimento-cvv">
               <div className="d-flex flex-column mt-3">
                 <label htmlFor="">Vencimento</label>
                 <input

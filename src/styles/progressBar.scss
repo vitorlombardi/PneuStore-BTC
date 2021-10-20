@@ -91,3 +91,27 @@ $color-secondary:#68dcfa;
 		}
 	}
 }
+
+@media (max-width: 768px) {
+	.bar-progress {
+		.line {
+			.line-fill-0 {
+				width: calc((525px / 3.5) * 0);
+			}
+
+			.line-fill-1 {
+				
+				width: 32%;
+			}
+
+			.line-fill-2 {
+				width: 65%
+			}
+
+			.line-fill-3 {
+				width: 100%
+			}
+		}
+	}
+}
+

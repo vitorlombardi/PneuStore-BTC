@@ -1,18 +1,19 @@
 import "../styles/entrega.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import ModalMontagemCasa from "./modal/modalMontagemCasa";
 import ModalEntregaCasa from "./modal/ModalEntregaCasa";
 import { ViaCep } from "../Api/ViaCep";
 import MaskedInput from "react-text-mask";
 
-export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
+export default function Entrega({ setPagamento, setEntrega, setIdbar, dadosClient }) {
   const [CEP, setCEP] = useState(false);
   const [endereco, setEndereco] = useState(undefined);
 
   const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
   const [openModaEntregaCasa, setOpenModaEntregaCasa] = useState(false);
 
+  const [enderecoApi, setEnderecoApi] = useState(undefined);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
 
   const handleClick = () => {
@@ -20,6 +21,18 @@ export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
     setEntrega(false);
     setIdbar("2")
   };
+  //teste11@gmail.com
+
+  useEffect(() => {
+    const pegaEndereco = () => {
+      if(dadosClient){
+        setEnderecoApi(...dadosClient);
+      }
+    }
+    pegaEndereco()
+  }, [dadosClient])
+
+ 
 
   const handleClickButtonCEPValida = async (e) => {
     e.preventDefault();
@@ -107,6 +120,7 @@ export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
                   open={openModaEntregaCasa}
                   setOpen={setOpenModaEntregaCasa}
                   setEnderecoEscolhido={setEnderecoEscolhido}
+                  enderecoApi={enderecoApi}
                   onClose={() => setOpenModaEntregaCasa(false)}
                 />
 

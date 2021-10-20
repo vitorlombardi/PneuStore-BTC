@@ -34,7 +34,7 @@ export default function FormAccount({ setEntrega, setIdbar }) {
 
       console.log(bodyRes);
       localStorage.setItem("Jwt", bodyRes.message)
-      localStorage.setItem("Login", JSON.stringify(payloadToken))
+      localStorage.setItem("Login", userName)
       
 
     } catch (error) {
@@ -87,6 +87,7 @@ export default function FormAccount({ setEntrega, setIdbar }) {
     const payload = {
       name,
       cpf,
+      email,
       birthDate,
       phone,
     };

@@ -9,6 +9,8 @@ export const Api = {
     //url post
     creatClientUrl: () => Api.baseURL + "/Client",
 
+    //url path
+    updateClienteUrl: (id) => Api.baseURL + `/Client/${id}`,
 
     //url Auth
     registerAuthUrl: () => Api.baseURL + "/Auth/Register",
@@ -34,6 +36,15 @@ export const Api = {
     buildApiPostRequest: (url, body) =>
     fetch(url, {
       method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(body),
+    }),
+
+    buildApiPathRequest: (url, body) =>
+    fetch(url, {
+      method: "PATH",
       headers: new Headers({
         "Content-Type": "application/json",
       }),

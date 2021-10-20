@@ -34,6 +34,7 @@ export default function Home() {
             setPagamento={setPagamento}
             setEntrega={setEntrega}
             setIdbar={setIdbar}
+            dadosClient={dadosClient}
           />
         );
       }
@@ -55,7 +56,7 @@ export default function Home() {
       }
     };
     setRender(render);
-  }, [entrega, pagamento, resumo]);
+  }, [dadosClient, entrega, pagamento, resumo]);
 
   useEffect(() => {
     if (entrega) {
@@ -68,10 +69,9 @@ export default function Home() {
           
           const result = await response.json();
 
-          console.log(result.results);
-
           const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
-          console.log(filter)
+          setDadosCliente(filter);
+          console.log(filter);
 
         }catch (error) {
           console.log({ error: error });

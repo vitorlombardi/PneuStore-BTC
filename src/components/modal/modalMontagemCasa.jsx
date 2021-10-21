@@ -1,22 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "../../styles/modal.scss";
 import "react-calendar/dist/Calendar.css";
 import FormCriaEndereco from "./formCriaEndereco";
 
+import casa from "../../img/casa_icon.png";
+
 export default function Modal({
   id = "modal",
   open,
   setOpen,
-  setEnderecoEscolhido,
   onClose,
+  enderecoApi,
+  tipoModal,
+  mudaDados,
+  setMudaDados,
 }) {
-  const [escolha, SetEscolha] = useState(true);
-  const [CriarEnderecos, setCriarEnderecos] = useState(true);
-  const [value, onChange] = useState(new Date());
+  const [escolha, SetEscolha] = useState(undefined);
+  const [CriaEnderecoMontagem, setCriaEnderecoMontagem] = useState(true);
+  const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
+  const [value, onChange] = useState(new Date(2021, 10, 26));
+
+  console.log(value)
 
   const handleClick = (e) => {
     if (e.target.id === id) onClose();
+  };
+
+
+  useEffect(() => {
+    const mudancaEndereco = () => {
+      const address1 = enderecoApi.address1;
+      const address2 = enderecoApi.address2;
+      const city = enderecoApi.city;
+      const zipCode = enderecoApi.zipCode;
+
+      const endEscolhido = {
+        address1,
+        address2,
+        city,
+        zipCode,
+      };
+
+      setEnderecoEscolhido(endEscolhido);
+    };
+    mudancaEndereco();
+  }, [enderecoApi, mudaDados]);
+
+
+  const handleClickSalvaEndereco = () => {
+
+
+    if(!enderecoEscolhido){
+      return alert("Selecione um endereço para continuar")
+    }
+
+    if(!value){
+      return alert("Selecione a data do agendameto para continuar")
+    }
+
+    if(!escolha){
+      return alert("Selecione um serviço para continuar")
+    }
+
+    localStorage.setItem(
+      "Endereço-de-Entrega",
+      JSON.stringify(enderecoEscolhido)
+    );
+
+    localStorage.setItem(
+      "data-de-entrega",
+      JSON.stringify(value)
+    );
+
+    localStorage.setItem(
+      "tipo-de-Entrega",
+      JSON.stringify(escolha)
+    );
+
+    setOpen(!open);
   };
 
   return (
@@ -24,7 +86,7 @@ export default function Modal({
       {open ? (
         <div id={id} className="Modal" onClick={handleClick}>
           <div className="info-Modal">
-            {CriarEnderecos ? (
+            {CriaEnderecoMontagem ? (
               <div className="escolhas">
                 <div className="d-flex justify-content-between titulo">
                   <h3>Instalação em Domicílio</h3>
@@ -64,13 +126,14 @@ export default function Modal({
                             <span>Montagem + Balanceamento</span>
                           </div>
                           <span>R$ 169,90</span>
-                          <div className="form-check">
+                          <div className="form-check" >
                             <input
                               className="form-check-input"
                               type="radio"
-                              name="flexRadioDefault"
+                              name="servico"
+                              value="basico"
                               id="flexRadioDefault1"
-                              defaultChecked
+                              onChange={e => SetEscolha(e.target.value)}
                             />
                           </div>
                         </div>
@@ -87,12 +150,14 @@ export default function Modal({
                             </span>
                           </div>
                           <span>R$ 189,90</span>
-                          <div className="form-check">
+                          <div className="form-check" >
                             <input
                               className="form-check-input"
                               type="radio"
-                              name="flexRadioDefault"
+                              name="servico"
+                              value="essencial"
                               id="flexRadioDefault1"
+                              onChange={e => SetEscolha(e.target.value)}
                             />
                           </div>
                         </div>
@@ -119,7 +184,11 @@ export default function Modal({
                       <h3>Agende a data</h3>
                     </div>
                     <div>
-                      <Calendar onChange={onChange} value={value} />
+                      <Calendar 
+                      onChange={onChange} 
+                      value={value}
+                      minDate={new Date(2021, 10, 26)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -142,32 +211,51 @@ export default function Modal({
                   </div>
                   <div className="mt-1 endereco-info">
                     <div className="endereco">
-                      <input type="radio" name="id-endereco" />
-                      <span>
-                        <b>Endereço: </b>rua teste 16
-                      </span>
-                      <span>
-                        <b>Complemento: </b>lado par
-                      </span>
-                      <span>
-                        <b>Bairro: </b>jardim teste
-                      </span>
-                      <span>
-                        <b>Uf: </b> SP
-                      </span>
-                      <span>
-                        <b>CEP: </b>00000-000
-                      </span>
+                      {enderecoApi.address1 ? (
+                        <div>
+                          <input type="radio" name="id-endereco" />
+                          <span>
+                            <b>Endereço: </b>
+                            {enderecoApi.address1}
+                          </span>
+                          <span>
+                            <b>Bairro: </b>
+                            {enderecoApi.address2}
+                          </span>
+                          <span>
+                            <b>Uf: </b>
+                            {enderecoApi.city}
+                          </span>
+                          <span>
+                            <b>CEP: </b>
+                            {enderecoApi.zipCode}
+                          </span>
+                        </div>
+                      ) : (
+                        <div
+                          className="nao-tem-endereco d-flex flex-column"
+                          onClick={() =>
+                            setCriaEnderecoMontagem(!CriaEnderecoMontagem)
+                          }
+                        >
+                          <img src={casa} alt="icone de casa" width="100px" />
+                          <span>adicionar um endereço</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className="mt-2 adicionar-endereco">
-                    <span
-                      onClick={() => setCriarEnderecos(!CriarEnderecos)}
-                      className="cria-novo-endereço"
-                    >
-                      Adicionar um novo endereço
-                    </span>
+                    {enderecoApi.address1 ? (
+                      <span
+                        onClick={() =>
+                          setCriaEnderecoMontagem(!CriaEnderecoMontagem)
+                        }
+                        className="cria-novo-endereço"
+                      >
+                        Adicionar um novo endereço
+                      </span>
+                    ) : null}
                   </div>
 
                   <div className="button">
@@ -191,8 +279,12 @@ export default function Modal({
                   </span>
                 </div>
                 <FormCriaEndereco
-                  setCriarEnderecos={setCriarEnderecos}
-                  CriarEnderecos={CriarEnderecos}
+                  setCriaEnderecoMontagem={setCriaEnderecoMontagem}
+                  CriaEnderecoMontagem={CriaEnderecoMontagem}
+                  tipoModal={tipoModal}
+                  enderecoApi={enderecoApi}
+                  mudaDados={mudaDados}
+                  setMudaDados={setMudaDados}
                 />
               </div>
             )}

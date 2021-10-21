@@ -15,66 +15,77 @@ import PneuList from "./PneuList";
 import ProgressBar from "./FormAccount/ProgressBar";
 import { Api } from "Api/Api";
 
-
-
-
 export default function Home() {
   const [conta, setConta] = useState(true);
   const [pagamento, setPagamento] = useState(false);
   const [entrega, setEntrega] = useState(false);
   const [resumo, setResumo] = useState(false);
   const [Render, setRender] = useState(undefined);
-  
-  const [idBar, setIdbar] = useState("0")
 
-  const [dadosClient, setDadosCliente] = useState(undefined)
+  const [idBar, setIdbar] = useState("0");
 
-
+  //const [dadosClient, setDadosCliente] = useState(undefined);
   useEffect(() => {
     const render = () => {
       if (entrega) {
-        return <Entrega setPagamento={setPagamento} setEntrega={setEntrega} setIdbar={setIdbar} />;
+        return (
+          <Entrega
+            setPagamento={setPagamento}
+            setEntrega={setEntrega}
+            entrega={entrega}
+            setIdbar={setIdbar}
+            //dadosClient={dadosClient}
+          />
+        );
       }
 
       if (pagamento) {
         return (
-          <FormPagamento setResumo={setResumo} setPagamento={setPagamento}  setIdbar={setIdbar}/>
+          <FormPagamento
+            setResumo={setResumo}
+            setPagamento={setPagamento}
+            setIdbar={setIdbar}
+          />
         );
       }
 
       if (resumo) {
         return <Resumo />;
       } else {
-        return <FormAccount setEntrega={setEntrega} setIdbar={setIdbar}/>;
+        return <FormAccount setEntrega={setEntrega} setIdbar={setIdbar} />;
       }
     };
     setRender(render);
   }, [entrega, pagamento, resumo]);
 
-  useEffect(() => {
-    const dadosLogin = () => {
-      const storage = localStorage.getItem("Login")
-      const dadosLogin = JSON.parse(storage)
-      console.log(dadosLogin)
-    }
-    if(entrega){
-      dadosLogin()
-      const dataCliente = async () => {
-        const response = await Api.buildAppGetRequestToken(Api.readClient(), true);
-        const result = await response.json();
-        console.log(result)
-      }
-      dataCliente()
-    }
-  }, [entrega]);
-  
+  // useEffect(() => {//nao esquecer de passsa a porra da requisicao para o conponente entrega
+  //   if (entrega) {
+  //     const storage = localStorage.getItem("Login");
+  //     console.log(storage);
 
+  //     const dataCliente = async () => {
+  //       try{
+  //         const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
+          
+  //         const result = await response.json();
 
+  //         const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
+  //         setDadosCliente(filter);
+  //         console.log(filter);
+
+  //       }catch (error) {
+  //         console.log({ error: error });
+  //       }
+        
+  //     };
+  //     dataCliente();
+  //   }
+  // }, [entrega]);
 
   return (
     <>
       <div>
-          <Header />
+        <Header />
       </div>
       <div className="display">
         <Container className="mt-4">
@@ -82,20 +93,20 @@ export default function Home() {
             <ProgressBar idBar={idBar} />
           </div>
           <Row className="display-row">
-              <Col >
-                {/* <FormAccount />  */}
-                {/* <FormPagamento/> */}
-                {/* <Entrega /> */}
-                {/* <Resumo/> */}
-                {Render}
-                {/* <PneuList /> */}
-              </Col>
+            <Col>
+              {/* <FormAccount />  */}
+              {/* <FormPagamento/> */}
+              {/* <Entrega /> */}
+              {/* <Resumo/> */}
+              {Render}
+              {/* <PneuList /> */}
+            </Col>
 
-              <Col className="infos">
-                <Order />
-                <Cupom />
-                <ResumoPedidoValor />
-              </Col>
+            <Col className="infos">
+              <Order />
+              <Cupom />
+              <ResumoPedidoValor />
+            </Col>
           </Row>
         </Container>
       </div>

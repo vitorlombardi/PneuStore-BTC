@@ -1,25 +1,83 @@
 import "../styles/entrega.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import ModalMontagemCasa from "./modal/modalMontagemCasa";
 import ModalEntregaCasa from "./modal/ModalEntregaCasa";
 import { ViaCep } from "../Api/ViaCep";
 import MaskedInput from "react-text-mask";
 
-export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
+import van from "../img/icone_van.png";
+import roda from "../img/chave-de-rodas.png";
+import casa from "../img/casa_icon.png";
+import { Api } from "Api/Api";
+
+export default function Entrega({
+  setPagamento,
+  setEntrega,
+  entrega,
+  setIdbar,
+  //dadosClient,
+}) {
+
+  const [tipoModal, setTipoModal] = useState("");
+
+  const [dadosClient, setDadosCliente] = useState(undefined);
+  const [mudaDados, setMudaDados] = useState(false);
+  console.log(mudaDados);
+
   const [CEP, setCEP] = useState(false);
   const [endereco, setEndereco] = useState(undefined);
 
   const [openModaMontagemCasa, setOpenModaMontagemCasa] = useState(false);
   const [openModaEntregaCasa, setOpenModaEntregaCasa] = useState(false);
 
-  const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
+  const [enderecoApi, setEnderecoApi] = useState(undefined);
+
+
+  useEffect(() => {
+    if (entrega) {
+      const storage = localStorage.getItem("Login");
+      console.log(storage);
+
+      const dataCliente = async () => {
+        try{
+          const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
+          
+          const result = await response.json();
+
+          const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
+          // @ts-ignore
+          setDadosCliente(filter);
+          console.log(filter);
+          
+
+        }catch (error) {
+          console.log({ error: error });
+        }
+        
+      };
+      dataCliente();
+      
+    }
+  }, [entrega,mudaDados]);
+
 
   const handleClick = () => {
     setPagamento(true);
     setEntrega(false);
-    setIdbar("2")
+    setIdbar("2");
   };
+  //teste11@gmail.com
+
+  useEffect(() => {
+    const pegaEndereco = () => {
+      if (dadosClient) {
+        // @ts-ignore
+        setEnderecoApi(...dadosClient);
+      }
+    };
+    pegaEndereco();
+  }, [dadosClient, mudaDados]);
 
   const handleClickButtonCEPValida = async (e) => {
     e.preventDefault();
@@ -35,6 +93,7 @@ export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
     try {
       const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
       const resultado = await res.json();
+      localStorage.setItem("CEP", JSON.stringify(resultado))
       console.log(resultado);
 
       if (resultado.erro) {
@@ -43,20 +102,30 @@ export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
 
       setEndereco(resultado);
       setCEP(true);
-      
     } catch (error) {
       console.log({ error: error });
       alert("CEP inválido");
     }
   };
 
+  const handleClickModalMontagem = () => {
+    setTipoModal("montagem")
+    setOpenModaMontagemCasa(true)
+  }
+
+  const handleClickModalCasa = () => {
+    setTipoModal("casa")
+    setOpenModaEntregaCasa(true)
+  }
+
   return (
     <div>
-      <form className="col-12" onSubmit={handleClickButtonCEPValida}>
-        <div className="d-flex flex-column escolha-itens">
-          <h3 className="fw-bold">Escolha uma opção de entrega </h3>
+      {/* <form className="col-12" onSubmit={handleClickButtonCEPValida}> */}
+      <div className="d-flex flex-column escolha-itens">
+        <h3 className="fw-bold">Escolha uma opção de entrega </h3>
 
-          <div className=" d-flex flex-column mt-5">
+        <div className=" d-flex flex-column mt-5">
+          <form onSubmit={handleClickButtonCEPValida}>
             <label>Informe o seu CEP</label>
             <div className="d-flex flex-row input">
               <MaskedInput
@@ -70,89 +139,115 @@ export default function Entrega({ setPagamento, setEntrega, setIdbar }) {
 
               <button className="button-cep">Calcular entrega</button>
             </div>
-          </div>
+          </form>
+        </div>
 
-          <div className="w-full flex justify-between items-center">
-            {CEP ? (
-              <div>
-                <h3 className="fw-bold mt-5">Tipos de entrega disponíveis</h3>
+        <div className="w-full flex justify-between items-center">
+          {CEP ? (
+            <div>
+              <h3 className="fw-bold mt-5">Tipos de entrega disponíveis</h3>
 
-                <div
-                  className="card mt-3 card-entrega"
-                  onClick={() => setOpenModaMontagemCasa(true)}
-                >
-                  <h5 className="card-header">Montagem Móvel</h5>
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      Agende sua entrega com a PneuStore Móvel
-                    </h5>
-                    {enderecoEscolhido ? (
-                      <div>
-                        <p>endereço:rua teste 176</p>
-                      </div>
-                    ) : (
-                      <p className="card-text">Confira opções</p>
-                    )}
-                  </div>
+              <div
+                className="card mt-3 card-entrega"
+                onClick={handleClickModalMontagem}
+              >
+                <div className="card-header d-flex justify-content-between">
+                  <h5 className="card-info-header">Montagem Móvel</h5>
+                  <img
+                    src={van}
+                    alt="Icone a van montagem movel"
+                    width="75px"
+                  />
                 </div>
-
-                <ModalMontagemCasa
-                  open={openModaMontagemCasa}
-                  setOpen={setOpenModaMontagemCasa}
-                  setEnderecoEscolhido={setEnderecoEscolhido}
-                  onClose={() => setOpenModaMontagemCasa(false)}
-                />
-
-                <ModalEntregaCasa
-                  open={openModaEntregaCasa}
-                  setOpen={setOpenModaEntregaCasa}
-                  setEnderecoEscolhido={setEnderecoEscolhido}
-                  onClose={() => setOpenModaEntregaCasa(false)}
-                />
-
-                <div
-                  className="card mt-3 card-entrega"
-                  onClick={() => alert("Serviço invalido")}
-                >
-                  <h5 className="card-header">
-                    Entregar e montar em um Centro de Montagem
+                <div className="card-body">
+                  <h5 className="card-title">
+                    Agende sua entrega com a PneuStore Móvel
                   </h5>
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      Confira a disponibilidade dos serviços em cada centro de
-                      montagem
-                    </h5>
-                    <div className="d-flex flex-row justify-content-between">
-                      <p className="card-text">De 4 a 7 dias úteis</p>
-                      <p className="card-text">R$34,90</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="card mt-3 card-entrega"
-                  onClick={() => setOpenModaEntregaCasa(true)}
-                >
-                  <h5 className="card-header">Entregar no meu endereço</h5>
-                  <div className="card-body">
-                    <h5 className="card-title">Normal</h5>
-                    <div className="d-flex flex-row justify-content-between">
-                      <p className="card-text">De 4 a 7 dias úteis</p>
-                      <p className="card-text">R$34,90</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-3 mb-3 d-flex justify-content-center">
-                  <button onClick={handleClick} className="button-cep">
-                    Continuar
-                  </button>
+                  <br />
+                    <p className="card-text">Confira opções</p>
+                  <br />
                 </div>
               </div>
-            ) : null}
-          </div>
+
+              <ModalMontagemCasa
+                open={openModaMontagemCasa}
+                setOpen={setOpenModaMontagemCasa}
+                onClose={() => setOpenModaMontagemCasa(false)}
+                enderecoApi={enderecoApi}
+                tipoModal={tipoModal}
+                mudaDados={mudaDados}
+                setMudaDados={setMudaDados}
+              />
+
+              <ModalEntregaCasa
+                open={openModaEntregaCasa}
+                setOpen={setOpenModaEntregaCasa}
+                enderecoApi={enderecoApi}
+                onClose={() => setOpenModaEntregaCasa(false)}
+                mudaDados={mudaDados}
+                setMudaDados={setMudaDados}
+                tipoModal={tipoModal}
+              />
+
+              <div
+                className="card mt-3 card-entrega card-1"
+                onClick={() => alert("Serviço invalido")}
+              >
+                <div className="card-header d-flex justify-content-between header-1">
+                  <h5 className="card-info-header">
+                    Entregar e montar em um Centro de Montagem
+                  </h5>
+                  <img
+                    src={roda}
+                    alt="Icone a uma roda"
+                    width="60px"
+                  />
+                </div>
+                <div className="card-body">
+                  <h5 className="card-title">
+                    Confira a disponibilidade dos serviços em cada centro de
+                    montagem
+                  </h5>
+                  <div className="d-flex flex-row justify-content-between">
+                    <p className="card-text">De 4 a 7 dias úteis</p>
+                    <p className="card-text">R$34,90</p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="card mt-3 card-entrega card-2"
+                onClick={handleClickModalCasa}
+              >
+                <div className="card-header d-flex justify-content-between header-2">
+                  <h5 className="card-info-header">
+                  Entregar no meu endereço
+                  </h5>
+                  <img
+                    src={casa}
+                    alt="Icone a uma roda"
+                    width="60px"
+                  />
+                </div>
+                <div className="card-body">
+                  <h5 className="card-title">Normal</h5>
+                  <div className="d-flex flex-row justify-content-between">
+                    <p className="card-text">De 4 a 7 dias úteis</p>
+                    <p className="card-text">R$34,90</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-3 mb-3 d-flex justify-content-center">
+                <button onClick={handleClick} className="button-cep">
+                  Continuar
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
-      </form>
+      </div>
+      {/* </form> */}
     </div>
   );
 }

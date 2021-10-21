@@ -44,9 +44,9 @@ export const Api = {
 
     buildApiPathRequest: (url, body) =>
     fetch(url, {
-      method: "PATH",
+      method: "PUT",
       headers: new Headers({
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", ...Api.authHeader
       }),
       body: JSON.stringify(body),
     }),

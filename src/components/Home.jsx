@@ -24,8 +24,7 @@ export default function Home() {
 
   const [idBar, setIdbar] = useState("0");
 
-  const [dadosClient, setDadosCliente] = useState(undefined);
-
+  //const [dadosClient, setDadosCliente] = useState(undefined);
   useEffect(() => {
     const render = () => {
       if (entrega) {
@@ -33,8 +32,9 @@ export default function Home() {
           <Entrega
             setPagamento={setPagamento}
             setEntrega={setEntrega}
+            entrega={entrega}
             setIdbar={setIdbar}
-            dadosClient={dadosClient}
+            //dadosClient={dadosClient}
           />
         );
       }
@@ -56,31 +56,31 @@ export default function Home() {
       }
     };
     setRender(render);
-  }, [dadosClient, entrega, pagamento, resumo]);
+  }, [entrega, pagamento, resumo]);
 
-  useEffect(() => {
-    if (entrega) {
-      const storage = localStorage.getItem("Login");
-      console.log(storage);
+  // useEffect(() => {//nao esquecer de passsa a porra da requisicao para o conponente entrega
+  //   if (entrega) {
+  //     const storage = localStorage.getItem("Login");
+  //     console.log(storage);
 
-      const dataCliente = async () => {
-        try{
-          const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
+  //     const dataCliente = async () => {
+  //       try{
+  //         const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
           
-          const result = await response.json();
+  //         const result = await response.json();
 
-          const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
-          setDadosCliente(filter);
-          console.log(filter);
+  //         const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
+  //         setDadosCliente(filter);
+  //         console.log(filter);
 
-        }catch (error) {
-          console.log({ error: error });
-        }
+  //       }catch (error) {
+  //         console.log({ error: error });
+  //       }
         
-      };
-      dataCliente();
-    }
-  }, [entrega]);
+  //     };
+  //     dataCliente();
+  //   }
+  // }, [entrega]);
 
   return (
     <>

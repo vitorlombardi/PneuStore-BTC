@@ -8,7 +8,6 @@ export default function Modal({
   id = "modal",
   open,
   setOpen,
-  setEnderecoEscolhido,
   onClose,
 }) {
   const [escolha, SetEscolha] = useState(true);

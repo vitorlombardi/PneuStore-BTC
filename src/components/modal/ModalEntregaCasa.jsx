@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/modal.scss";
 import FormCriaEndereco from "./formCriaEndereco";
 
@@ -8,14 +8,44 @@ export default function ModalEntregaCasa({
   id = "modal",
   open,
   setOpen,
-  setEnderecoEscolhido,
   onClose,
   enderecoApi,
+  mudaDados,
+  setMudaDados,
 }) {
   const [CriarEnderecos, setCriarEnderecos] = useState(true);
+  const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
 
   const handleClick = (e) => {
     if (e.target.id === id) onClose();
+  };
+
+  useEffect(() => {
+    const mudancaEndereco = () => {
+      const address1 = enderecoApi.address1;
+      const address2 = enderecoApi.address2;
+      const city = enderecoApi.city;
+      const zipCode = enderecoApi.zipCode;
+
+      const endEscolhido = {
+        address1,
+        address2,
+        city,
+        zipCode,
+      };
+
+      setEnderecoEscolhido(endEscolhido);
+    };
+    mudancaEndereco();
+  }, [enderecoApi, mudaDados, CriarEnderecos]);
+
+  const handleClickSalvaEndereco = () => {
+    localStorage.setItem(
+      "Endereço-de-Entrga",
+      JSON.stringify(enderecoEscolhido)
+    );
+
+    setOpen(!open);
   };
 
   return (
@@ -80,7 +110,7 @@ export default function ModalEntregaCasa({
                   <div className="button">
                     <button
                       className="mt-2 botao-confirmar"
-                      onClick={() => setOpen(!open)}
+                      onClick={handleClickSalvaEndereco}
                     >
                       Enviar para este endereço
                     </button>
@@ -99,9 +129,14 @@ export default function ModalEntregaCasa({
                 </div>
                 <div>
                   <FormCriaEndereco
+                    open={open}
+                    setOpen={setOpen}
                     setCriarEnderecos={setCriarEnderecos}
                     CriarEnderecos={CriarEnderecos}
                     enderecoApi={enderecoApi}
+                    mudaDados={mudaDados}
+                    setMudaDados={setMudaDados}
+                    enderecoEscolhido={enderecoEscolhido}
                   />
                 </div>
               </div>

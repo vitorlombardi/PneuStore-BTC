@@ -19,6 +19,8 @@ export default function Entrega({
   //dadosClient,
 }) {
 
+  const [tipoModal, setTipoModal] = useState("");
+
   const [dadosClient, setDadosCliente] = useState(undefined);
   const [mudaDados, setMudaDados] = useState(false);
   console.log(mudaDados);
@@ -106,6 +108,16 @@ export default function Entrega({
     }
   };
 
+  const handleClickModalMontagem = () => {
+    setTipoModal("montagem")
+    setOpenModaMontagemCasa(true)
+  }
+
+  const handleClickModalCasa = () => {
+    setTipoModal("casa")
+    setOpenModaEntregaCasa(true)
+  }
+
   return (
     <div>
       {/* <form className="col-12" onSubmit={handleClickButtonCEPValida}> */}
@@ -137,7 +149,7 @@ export default function Entrega({
 
               <div
                 className="card mt-3 card-entrega"
-                onClick={() => setOpenModaMontagemCasa(true)}
+                onClick={handleClickModalMontagem}
               >
                 <div className="card-header d-flex justify-content-between">
                   <h5 className="card-info-header">Montagem Móvel</h5>
@@ -161,6 +173,10 @@ export default function Entrega({
                 open={openModaMontagemCasa}
                 setOpen={setOpenModaMontagemCasa}
                 onClose={() => setOpenModaMontagemCasa(false)}
+                enderecoApi={enderecoApi}
+                tipoModal={tipoModal}
+                mudaDados={mudaDados}
+                setMudaDados={setMudaDados}
               />
 
               <ModalEntregaCasa
@@ -170,6 +186,7 @@ export default function Entrega({
                 onClose={() => setOpenModaEntregaCasa(false)}
                 mudaDados={mudaDados}
                 setMudaDados={setMudaDados}
+                tipoModal={tipoModal}
               />
 
               <div
@@ -200,7 +217,7 @@ export default function Entrega({
 
               <div
                 className="card mt-3 card-entrega card-2"
-                onClick={() => setOpenModaEntregaCasa(true)}
+                onClick={handleClickModalCasa}
               >
                 <div className="card-header d-flex justify-content-between header-2">
                   <h5 className="card-info-header">

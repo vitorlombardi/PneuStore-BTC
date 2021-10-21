@@ -11,7 +11,10 @@ export default function FormCriaEndereco({
   enderecoApi,
   mudaDados,
   setMudaDados,
-  enderecoEscolhido
+  enderecoEscolhido,
+  setCriaEnderecoMontagem,
+  CriaEnderecoMontagem,
+  tipoModal
 }) {
 
 
@@ -61,8 +64,13 @@ export default function FormCriaEndereco({
       const bodyResponseRegister = await res.json();
       
       setMudaDados(!mudaDados)
-      
-      setCriarEnderecos(!CriarEnderecos)
+
+      if(tipoModal === "casa"){
+        setCriarEnderecos(!CriarEnderecos)
+      }
+      if(tipoModal === "montagem"){
+        setCriaEnderecoMontagem(!CriaEnderecoMontagem)
+      }
 
       if (bodyResponseRegister.succeed === false) {
         return alert("Falha ao adcionar endereço");

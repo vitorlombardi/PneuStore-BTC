@@ -12,6 +12,7 @@ export default function ModalEntregaCasa({
   enderecoApi,
   mudaDados,
   setMudaDados,
+  tipoModal
 }) {
   const [CriarEnderecos, setCriarEnderecos] = useState(true);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
@@ -41,7 +42,7 @@ export default function ModalEntregaCasa({
 
   const handleClickSalvaEndereco = () => {
     localStorage.setItem(
-      "Endereço-de-Entrga",
+      "Endereço-de-Entrega",
       JSON.stringify(enderecoEscolhido)
     );
 
@@ -137,6 +138,7 @@ export default function ModalEntregaCasa({
                     mudaDados={mudaDados}
                     setMudaDados={setMudaDados}
                     enderecoEscolhido={enderecoEscolhido}
+                    tipoModal={tipoModal}
                   />
                 </div>
               </div>

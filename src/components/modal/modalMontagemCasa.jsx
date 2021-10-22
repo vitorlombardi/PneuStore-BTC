@@ -17,14 +17,15 @@ export default function Modal({
   setMudaDados,
 
   setmodalMontagemSelecionado,
-  setmodalCasaSelecionado
+  setmodalCasaSelecionado,
+
+  setTemServico,
+  temServico
 }) {
   const [escolha, SetEscolha] = useState(undefined);
   const [CriaEnderecoMontagem, setCriaEnderecoMontagem] = useState(true);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
   const [value, onChange] = useState(new Date(2021, 10, 26));
-
-  console.log(value)
 
   const handleClick = (e) => {
     if (e.target.id === id) onClose();
@@ -67,7 +68,7 @@ export default function Modal({
     }
 
     if(enderecoEscolhido.address1 === null){
-      return alert("Selecione um serviço para continuar")
+      return alert("Selecione um endereço para continuar")
     }
 
     localStorage.setItem(
@@ -89,6 +90,9 @@ export default function Modal({
 
     setmodalMontagemSelecionado(true)
     setmodalCasaSelecionado(false)
+
+    setTemServico(!temServico)
+  
   };
 
   return (

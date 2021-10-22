@@ -1,31 +1,82 @@
-import React from 'react'
-import '../styles/resumoPedidoValor.scss'
+import React, { useEffect, useState } from "react";
+import "../styles/resumoPedidoValor.scss";
 
-export default function ResumoPedido() {
-	return (
-		<div className='d-flex flex-column resumo-pedido'>
+export default function ResumoPedido({
+  valorTotalCarrinho,
+  temServico,
+  temFrete,
+}) {
+  const [valorTotal, setValortotal] = useState(undefined);
+  const [valoFrete, setValorFrete] = useState(0);
+  const [valoServico, setValorServico] = useState(0);
+  const [temValorServico, setTemValorServico] = useState(false)
 
-            <div className='d-flex flex-row tipo-pedido'>
-                <p><b>SubTotal:</b></p>
-                <p>R$900,00</p>
-            </div>
-            <div className='d-flex flex-row tipo-pedido'>
-                <p><b>Frete:</b></p>
-                <p>R$34,00</p>
-            </div>
-            <div className='d-flex flex-row mb-0 tipo-pedido tipo-info'>
-                <p><b>Instalação em domicílio:</b></p>
-                <p>R$169,90</p>
-            </div>
-            <div className='d-flex flex-row tipo-pedido tipo-pedido-info'>
-                <p>Combo Básico 1 ou 2 Pneus (Aro 12 - 16) no dia 30/09 com preferência para o período da tarde</p>
-            </div>
-            <div className='d-flex flex-row tipo-pedido'>
-                <span><b>Total:</b></span>
-                <span><b>R$1.103,90</b></span>
-            </div>
-                
-		</div>
-	)
+  console.log(temServico);
+
+  useEffect(() => {
+    const carrinho = () => {
+      const frete = localStorage.getItem("frete");
+      const freteValor = JSON.parse(frete);
+
+      const servico = localStorage.getItem("tipo-de-Entrega");
+      const servicoTipo = JSON.parse(servico);
+
+      if (servicoTipo === "basico") {
+        setValorServico(169.9);
+        setTemValorServico(!temValorServico)
+
+      }
+      if (servicoTipo === "essencial") {
+        setValorServico(189.9);
+        setTemValorServico(!temValorServico)
+      }
+
+      setValorFrete(freteValor);
+    };
+    carrinho();
+  }, [temServico, temFrete]);
+
+  useEffect(() => {
+    const carrinho = () => {
+      setValortotal(valorTotalCarrinho + valoFrete + valoServico);
+    };
+    carrinho();
+  }, [valoFrete, valoServico, valorTotalCarrinho]);
+
+  return (
+    <div className="d-flex flex-column resumo-pedido">
+      <div className="d-flex flex-row tipo-pedido">
+        <p>
+          <b>SubTotal:</b>
+        </p>
+        <p>R$ {valorTotalCarrinho}.00</p>
+      </div>
+      {temFrete ? (
+        <div className="d-flex flex-row tipo-pedido">
+          <p>
+            <b>Frete:</b>
+          </p>
+          <p>R$ {valoFrete}.00</p>
+        </div>
+      ) : null}
+
+      {temValorServico ? (
+        <div className="d-flex flex-row mb-0 tipo-pedido tipo-info">
+          <p>
+            <b>Instalação em domicílio:</b>
+          </p>
+          <p>R${valoServico}0</p>
+        </div>
+      ) : null}
+
+      <div className="d-flex flex-row tipo-pedido">
+        <span>
+          <b>Total:</b>
+        </span>
+        <span>
+          <b>R$ {valorTotal}0</b>
+        </span>
+      </div>
+    </div>
+  );
 }
-

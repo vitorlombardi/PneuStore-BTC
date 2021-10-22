@@ -16,7 +16,10 @@ export default function Entrega({
   setEntrega,
   entrega,
   setIdbar,
-  //dadosClient,
+  setTemFrete,
+  setTemServico,
+  temServico
+ 
 }) {
 
   const [tipoModal, setTipoModal] = useState("");
@@ -38,9 +41,6 @@ export default function Entrega({
   const [classMontagem, setClassMontagem] = useState("");
   const [classCasa, setClassCasa] = useState("");
 
-  console.log(classMontagem);
-  console.log(classCasa);
-  
 
   useEffect(() => {
     const setClassName = () => {
@@ -92,7 +92,6 @@ export default function Entrega({
     setEntrega(false);
     setIdbar("2");
   };
-  //teste11@gmail.com
 
   useEffect(() => {
     const pegaEndereco = () => {
@@ -126,6 +125,9 @@ export default function Entrega({
 
       setEndereco(resultado);
       setCEP(true);
+
+      setTemFrete(true)
+      localStorage.setItem("frete", JSON.stringify(34))
     } catch (error) {
       console.log({ error: error });
       alert("CEP inválido");
@@ -204,6 +206,9 @@ export default function Entrega({
 
                 setmodalMontagemSelecionado={setmodalMontagemSelecionado}
                 setmodalCasaSelecionado={setmodalCasaSelecionado}
+                
+                setTemServico={setTemServico}
+                temServico={temServico}
               />
 
               <ModalEntregaCasa

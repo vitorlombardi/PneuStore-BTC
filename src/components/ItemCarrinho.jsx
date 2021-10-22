@@ -60,7 +60,7 @@ export default function ItemCarrinho({setValorTotalCarrinho,setQuantidateCarrinh
 	  setValorTotalCarrinho(valorTotal)
     };
     valor();
-  }, [quantidadePnel, valorCarrinho, valorTotal]);
+  }, [quantidadePnel, setValorTotalCarrinho, valorCarrinho, valorTotal]);
 
   if (!itemCarrinho) {
     return <div>Carregando carrinho...</div>;

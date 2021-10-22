@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import FormCriaEndereco from "./formCriaEndereco";
 
 import casa from "../../img/casa_icon.png";
+import { toast } from "react-toastify";
 
 export default function Modal({
   id = "modal",
@@ -56,19 +57,19 @@ export default function Modal({
 
 
     if(!enderecoEscolhido){
-      return alert("Selecione um endereço para continuar")
+      return toast.error("Selecione um endereço para continuar")
     }
 
     if(!value){
-      return alert("Selecione a data do agendameto para continuar")
+      return toast.error("Selecione a data do agendameto para continuar")
     }
 
     if(!escolha){
-      return alert("Selecione um serviço para continuar")
+      return toast.error("Selecione um serviço para continuar")
     }
 
     if(enderecoEscolhido.address1 === null){
-      return alert("Selecione um endereço para continuar")
+      return toast.error("Selecione um endereço para continuar")
     }
 
     localStorage.setItem(

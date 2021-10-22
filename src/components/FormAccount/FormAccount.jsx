@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import MaskedInput from "react-text-mask";
+import { toast } from "react-toastify";
 
 import { Api } from "../../Api/Api";
 import "../../styles/formAccount.scss";
@@ -10,6 +11,7 @@ export default function FormAccount({ setEntrega, setIdbar }) {
 
   const handleSubmitToken = async (e) => {
     e.preventDefault();
+    toast.info("Conferindo dados de login")
 
     const userName = e.target.nome.value;
     const passwordHash = e.target.senha.value;
@@ -29,17 +31,18 @@ export default function FormAccount({ setEntrega, setIdbar }) {
 
       const bodyRes = await response.json();
       if (!bodyRes.succeed) {
-        return alert("Email ou senha invalidos");
+        return toast.error("Email ou senha invalidos");
       }
 
       console.log(bodyRes);
       localStorage.setItem("Jwt", bodyRes.message)
       localStorage.setItem("Login", userName)
+      toast.success("Usuario logado com sucesso")
       
 
     } catch (error) {
       console.log({ error: error });
-      return alert("Falha ao fazer login confira os dados e tente de novo")
+      return toast.error("Falha ao fazer login confira os dados e tente de novo")
     }
 
     
@@ -73,14 +76,12 @@ export default function FormAccount({ setEntrega, setIdbar }) {
       .replace("-", "");
 
     if (passwordHash !== confirmPasswordHash) {
-      return alert("As senhas estão diferentes");
+      return toast.error("As senhas estão diferentes");
     }
 
     if (!regex.test(passwordHash)) {
-      return alert(
-        "A senha deve conter no mínimo 8 caracteres \n" +
-          "A senha deve ter no mínimo uma letra maiúscula e minúscula \n" +
-          "A senha deve ter no mínimo um caractere especial \n"
+      return toast.error(
+        "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e minúscula e um caractere especial" 
       );
     }
 
@@ -108,11 +109,11 @@ export default function FormAccount({ setEntrega, setIdbar }) {
       console.log(bodyResponseRegister);
   
       if (bodyResponseRegister.succeed === false) {
-        return alert("Falha ao registrar, confira seus dados ");
+        return toast.error("Falha ao registrar, confira seus dados ");
       }
     }catch (error) {
       console.log({ error: error });
-      return alert("Falha ao registrar");
+      return toast.error("Falha ao registrar");
     }
 
     try{
@@ -124,12 +125,14 @@ export default function FormAccount({ setEntrega, setIdbar }) {
       console.log(bodyResponse);
   
       if (bodyResponse.succeed === false) {
-        return alert("Falha ao registrar, confira seus dados ");
+        return toast.error("Falha ao registrar, confira seus dados ");
       }
+
+      toast.success("Usuario registrado com sucesso")
 
     }catch (error) {
       console.log({ error: error });
-      return alert("Falha ao registrar");
+      return toast.error("Falha ao registrar");
     }
 
     setRegistrar(false);

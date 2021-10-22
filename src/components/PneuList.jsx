@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Api } from "../Api/Api";
 
@@ -37,7 +38,7 @@ export default function PneuList() {
             <h3 className="card-title"></h3>
             <p className="card-text"></p>
             <p className="card-text"></p>
-            <a hrf="\" className="btn btn-primary"></a>
+            <a href="\" className="btn btn-primary"></a>
           </div>
         </div>
       ))}

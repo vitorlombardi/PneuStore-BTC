@@ -18,7 +18,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
       numero,
       vencimento,
       cvv,
-      parcela,
+      parcela
     };
 
     localStorage.setItem("pagamento", JSON.stringify(dadosCartao))
@@ -62,7 +62,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
                   /\d/,
                   /\d/,
                   /\d/,
-                  /\d/,
+                  /\d/
                 ]}
                 className="mt-1"
                 type="text"
@@ -83,7 +83,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
                   /\d/,
                   /\d/,
                   /\d/,
-                  /\d/,
+                  /\d/
                 ]}
                 className="mt-1"
                 type="text"
@@ -101,7 +101,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
                 mask={[
                   /\d/,
                   /\d/,
-                  /\d/,
+                  /\d/
                 ]}
                 className="mt-1 cvv-input"
                 type="text"

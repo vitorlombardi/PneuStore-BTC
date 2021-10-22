@@ -67,9 +67,9 @@ export default function ItemCarrinho({setValorTotalCarrinho,setQuantidateCarrinh
   }
 
   return (
-    <div className="row mt-4 item-cart">
+    <div>
       {itemCarrinho ? (
-        <div>
+        <div className="row mt-4 item-cart">
           <div className="col-4">
             <img src={itemCarrinho.imgPneu} alt={itemCarrinho.nomePneu} />
           </div>

@@ -86,13 +86,16 @@ export default function Modal({
       JSON.stringify(escolha)
     );
 
+    setTemServico(!temServico);
+    
+  
+
     setOpen(!open);
 
     setmodalMontagemSelecionado(true)
     setmodalCasaSelecionado(false)
 
-    setTemServico(!temServico)
-  
+    
   };
 
   return (

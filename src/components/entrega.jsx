@@ -61,7 +61,6 @@ export default function Entrega({
   useEffect(() => {
     if (entrega) {
       const storage = localStorage.getItem("Login");
-      console.log(storage);
 
       const dataCliente = async () => {
         try {
@@ -77,7 +76,6 @@ export default function Entrega({
           );
           // @ts-ignore
           setDadosCliente(filter);
-          console.log(filter);
         } catch (error) {
           console.log({ error: error });
         }

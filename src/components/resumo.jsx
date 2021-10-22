@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/resumo.scss";
 
-export default function Resumo({mudaValor}) {
+export default function Resumo({ mudaValor, quantidateCarrinho }) {
   const [temCartao, setTemCartao] = useState(undefined);
   const [numeroCartao, setNumeroCartao] = useState(undefined);
 
@@ -10,6 +10,8 @@ export default function Resumo({mudaValor}) {
   const [resumoEntrega, setResumoEntrega] = useState(undefined);
 
   const [totalPagar, setTotalPagar] = useState(undefined);
+
+  const [itemCarrinho, setCarrinho] = useState(undefined);
 
   useEffect(() => {
     const cartao = () => {
@@ -22,6 +24,16 @@ export default function Resumo({mudaValor}) {
       setTemCartao(pagamento);
     };
     cartao();
+  }, []);
+
+  useEffect(() => {
+    const item = () => {
+      const storage = localStorage.getItem("pneuCarrinho");
+      const item = JSON.parse(storage);
+
+      setCarrinho(item);
+    };
+    item();
   }, []);
 
   useEffect(() => {
@@ -57,7 +69,7 @@ export default function Resumo({mudaValor}) {
 
   useEffect(() => {
     const total = () => {
-        setTotalPagar(mudaValor)
+      setTotalPagar(mudaValor);
     };
     total();
   }, [mudaValor, totalPagar]);
@@ -103,21 +115,23 @@ export default function Resumo({mudaValor}) {
             </div>
           ) : null}
 
-          <div className="info mt-3 itens">
-            <span>
-              <b>Produtos comprados:</b>
-            </span>
-            <div className="d-flex flex-row ">
-              <span>Pneu Continental aro '16 * 205/55R16 91w run flat</span>
-              <span>x</span>
-              <span>R$350,00</span>
+          {itemCarrinho ? (
+            <div className="info mt-3 itens">
+              <span>
+                <b>Produtos comprados:</b>
+              </span>
+              <div className="d-flex flex-row ">
+                <span>{itemCarrinho.nomePneu}</span>
+                <span>x</span>
+                <span>R${itemCarrinho.valorPneu},00</span>
+              </div>
+              <div className="d-flex quantidade">
+                <p>
+                  <b>Quantidade: {quantidateCarrinho}</b>
+                </p>
+              </div>
             </div>
-            <div className="d-flex flex-row ">
-              <span>Pneu Continental aro '16 * 205/55R16 91w run flat</span>
-              <span>x</span>
-              <span>R$350,00</span>
-            </div>
-          </div>
+          ) : null}
 
           {totalPagar ? (
             <div className="info mt-3 d-flex flex-column valor">

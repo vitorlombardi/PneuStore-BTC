@@ -17,6 +17,8 @@ import { Api } from "Api/Api";
 
 export default function Home() {
   const [valorTotalCarrinho, setValorTotalCarrinho] = useState(undefined);
+  const [mudaValor, setMudaValor] = useState(undefined);
+  const [quantidateCarrinho, setQuantidateCarrinho] = useState(1);
   const [temFrete, setTemFrete] = useState(false);
   const [temServico, setTemServico] = useState(false);
   const [entregacasa, setEntregaCasa] = useState(false);
@@ -56,13 +58,13 @@ export default function Home() {
       }
 
       if (resumo) {
-        return <Resumo />;
+        return <Resumo mudaValor={mudaValor} quantidateCarrinho={quantidateCarrinho}/>;
       } else {
         return <FormAccount setEntrega={setEntrega} setIdbar={setIdbar} />;
       }
     };
     setRender(render);
-  }, [entrega, pagamento, resumo]);
+  }, [entrega, entregacasa, mudaValor, pagamento, quantidateCarrinho, resumo, temServico]);
 
   return (
     <>
@@ -87,13 +89,15 @@ export default function Home() {
             <Col className="infos">
               <Order 
               setValorTotalCarrinho={setValorTotalCarrinho} 
+              setQuantidateCarrinho={setQuantidateCarrinho}
               />
               <Cupom />
-              <ResumoPedidoValor 
-              valorTotalCarrinho={valorTotalCarrinho}
-              temServico={temServico}
-              temFrete={temFrete}
-              entregacasa={entregacasa}
+              <ResumoPedidoValor
+                valorTotalCarrinho={valorTotalCarrinho}
+                temServico={temServico}
+                temFrete={temFrete}
+                entregacasa={entregacasa}
+                setMudaValor={setMudaValor}
               />
             </Col>
           </Row>

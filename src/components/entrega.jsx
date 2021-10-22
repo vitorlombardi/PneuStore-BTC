@@ -10,6 +10,7 @@ import van from "../img/icone_van.png";
 import roda from "../img/chave-de-rodas.png";
 import casa from "../img/casa_icon.png";
 import { Api } from "Api/Api";
+import { toast } from "react-toastify";
 
 export default function Entrega({
   setPagamento,
@@ -61,7 +62,6 @@ export default function Entrega({
   useEffect(() => {
     if (entrega) {
       const storage = localStorage.getItem("Login");
-      console.log(storage);
 
       const dataCliente = async () => {
         try {
@@ -77,7 +77,6 @@ export default function Entrega({
           );
           // @ts-ignore
           setDadosCliente(filter);
-          console.log(filter);
         } catch (error) {
           console.log({ error: error });
         }
@@ -108,7 +107,7 @@ export default function Entrega({
     const cepInput = e.target.cep.value;
 
     if (cepInput.length !== 9) {
-      return alert("CEP inválido");
+      return toast.error("CEP inválido");
     }
 
     const cep = cepInput.replace("-", "");
@@ -119,8 +118,10 @@ export default function Entrega({
       localStorage.setItem("CEP", JSON.stringify(resultado));
 
       if (resultado.erro) {
-        return alert("CEP inválido");
+        return toast.error("CEP inválido");
       }
+
+      toast.info("CEP válido")
 
       setEndereco(resultado);
       setCEP(true);
@@ -129,7 +130,7 @@ export default function Entrega({
       localStorage.setItem("frete", JSON.stringify(34));
     } catch (error) {
       console.log({ error: error });
-      return alert("CEP inválido");
+      return toast.error("CEP inválido");
     }
   };
 

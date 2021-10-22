@@ -6,6 +6,7 @@ export default function ResumoPedido({
   temServico,
   temFrete,
   entregacasa,
+  setMudaValor
 }) {
 
   
@@ -22,43 +23,57 @@ export default function ResumoPedido({
   const [valoFrete, setValorFrete] = useState(0);
   const [valoServico, setValorServico] = useState(0);
   const [temValorServico, setTemValorServico] = useState(false)
-
-  console.log(temServico);
+  const [erroSevico, setErroSevico] = useState(false)
 
   useEffect(() => {
     const carrinho = () => {
       const frete = localStorage.getItem("frete");
       const freteValor = JSON.parse(frete);
 
+      setValorFrete(freteValor);
+    };
+    carrinho();
+  }, [temFrete]);
+
+
+  useEffect(() => {
+    const carrinho = () => {
+      
       const servico = localStorage.getItem("tipo-de-Entrega");
+      console.log(servico);
       const servicoTipo = JSON.parse(servico);
       console.log(servicoTipo);
+
+      if (servicoTipo === null) {
+        setValorServico(0);
+        setTemValorServico(false)
+        return
+      }
 
       if (servicoTipo === "basico") {
         setValorServico(169);
         setTemValorServico(!temValorServico)
-
+        return
       }
       if (servicoTipo === "essencial") {
         setValorServico(189);
         setTemValorServico(!temValorServico)
+        return
       }
 
-      if (servicoTipo === null || servicoTipo === undefined) {
-        setValorServico(0);
-        setTemValorServico(false)
-      }
+      setErroSevico(erroSevico)
 
-      setValorFrete(freteValor);
     };
     carrinho();
-  }, [temServico, temFrete, entregacasa,]);
+  }, [temServico, entregacasa, erroSevico]);
 
   useEffect(() => {
     const carrinho = () => {
       setValortotal(valorTotalCarrinho + valoFrete + valoServico);
+      setMudaValor(valorTotalCarrinho + valoFrete + valoServico)
     };
     carrinho();
+    
   }, [valoFrete, valoServico, valorTotalCarrinho]);
 
   return (

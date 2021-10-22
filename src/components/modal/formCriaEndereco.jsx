@@ -1,5 +1,6 @@
 import { Api } from "Api/Api";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import "../../styles/formCriaEndereco.scss";
 
@@ -73,12 +74,14 @@ export default function FormCriaEndereco({
       }
 
       if (bodyResponseRegister.succeed === false) {
-        return alert("Falha ao adcionar endereço");
+        return toast.error("Falha ao adcionar endereço");
       }
+
+      toast.success("Endereço adcionado com sucesso")
 
     } catch (error) {
       console.log({ error: error });
-      return alert("Falha ao adcionar endereço");
+      return toast.error("Falha ao adcionar endereço");
     }
   };
 

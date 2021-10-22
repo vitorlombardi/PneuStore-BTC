@@ -154,6 +154,12 @@ $color-default: #4e008e;
   }
 }
 
+@media (max-width: 992px) {
+  .Modal {
+    height: 260vh;
+  }
+}
+
 @media (max-width: 500px) {
   .Modal {
     height: 320vh;

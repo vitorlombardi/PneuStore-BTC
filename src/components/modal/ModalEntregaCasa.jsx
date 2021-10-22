@@ -55,7 +55,8 @@ export default function ModalEntregaCasa({
       JSON.stringify(enderecoEscolhido)
     );
 
-    localStorage.removeItem("tipo-de-Entrega");
+    //localStorage.removeItem("tipo-de-Entrega");
+    localStorage.setItem("tipo-de-Entrega", null);
     setTemServico(!temServico);
 
     setEntregaCasa(!entregacasa);
@@ -65,6 +66,8 @@ export default function ModalEntregaCasa({
     setmodalMontagemSelecionado(false);
     setmodalCasaSelecionado(true);
   };
+
+
 
   return (
     <>

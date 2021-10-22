@@ -18,11 +18,10 @@ export default function Entrega({
   setIdbar,
   setTemFrete,
   setTemServico,
-  temServico
- 
+  temServico,
 }) {
-
   const [tipoModal, setTipoModal] = useState("");
+  const [apareceBotao, setApareceBotao] = useState(false);
 
   const [dadosClient, setDadosCliente] = useState(undefined);
   const [mudaDados, setMudaDados] = useState(false);
@@ -35,29 +34,27 @@ export default function Entrega({
 
   const [enderecoApi, setEnderecoApi] = useState(undefined);
 
-  const [modalMontagemSelecionado, setmodalMontagemSelecionado] = useState(false);
+  const [modalMontagemSelecionado, setmodalMontagemSelecionado] =
+    useState(false);
   const [modalCasaSelecionado, setmodalCasaSelecionado] = useState(false);
 
   const [classMontagem, setClassMontagem] = useState("");
   const [classCasa, setClassCasa] = useState("");
 
-
   useEffect(() => {
     const setClassName = () => {
-      if(modalMontagemSelecionado){
-        setClassMontagem("true")
-        setClassCasa("")
+      if (modalMontagemSelecionado) {
+        setClassMontagem("true");
+        setClassCasa("");
       }
-    
-      if(modalCasaSelecionado){
-        setClassMontagem("")
-        setClassCasa("true")
+
+      if (modalCasaSelecionado) {
+        setClassMontagem("");
+        setClassCasa("true");
       }
-    }
-    setClassName()
-  },[modalCasaSelecionado, modalMontagemSelecionado])
-  
-  
+    };
+    setClassName();
+  }, [modalCasaSelecionado, modalMontagemSelecionado]);
 
   useEffect(() => {
     if (entrega) {
@@ -65,27 +62,27 @@ export default function Entrega({
       console.log(storage);
 
       const dataCliente = async () => {
-        try{
-          const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
-          
+        try {
+          const response = await Api.buildAppGetRequestToken(
+            Api.readClient(),
+            true
+          );
+
           const result = await response.json();
 
-          const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
+          const filter = result.results.filter(
+            (cliente) => cliente.email === `${storage}`
+          );
           // @ts-ignore
           setDadosCliente(filter);
           console.log(filter);
-          
-
-        }catch (error) {
+        } catch (error) {
           console.log({ error: error });
         }
-        
       };
       dataCliente();
-      
     }
-  }, [entrega,mudaDados]);
-
+  }, [entrega, mudaDados]);
 
   const handleClick = () => {
     setPagamento(true);
@@ -117,7 +114,7 @@ export default function Entrega({
     try {
       const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
       const resultado = await res.json();
-      localStorage.setItem("CEP", JSON.stringify(resultado))
+      localStorage.setItem("CEP", JSON.stringify(resultado));
 
       if (resultado.erro) {
         return alert("CEP inválido");
@@ -126,8 +123,8 @@ export default function Entrega({
       setEndereco(resultado);
       setCEP(true);
 
-      setTemFrete(true)
-      localStorage.setItem("frete", JSON.stringify(34))
+      setTemFrete(true);
+      localStorage.setItem("frete", JSON.stringify(34));
     } catch (error) {
       console.log({ error: error });
       alert("CEP inválido");
@@ -135,14 +132,16 @@ export default function Entrega({
   };
 
   const handleClickModalMontagem = () => {
-    setTipoModal("montagem")
-    setOpenModaMontagemCasa(true)
-  }
+    setTipoModal("montagem");
+    setOpenModaMontagemCasa(true);
+    setApareceBotao(true);
+  };
 
   const handleClickModalCasa = () => {
-    setTipoModal("casa")
-    setOpenModaEntregaCasa(true)
-  }
+    setTipoModal("casa");
+    setOpenModaEntregaCasa(true);
+    setApareceBotao(true);
+  };
 
   return (
     <div>
@@ -177,7 +176,9 @@ export default function Entrega({
                 className={`card mt-3 card-entrega selecionado-${classMontagem}`}
                 onClick={handleClickModalMontagem}
               >
-                <div className={`card-header header-${classMontagem} d-flex justify-content-between`}>
+                <div
+                  className={`card-header header-${classMontagem} d-flex justify-content-between`}
+                >
                   <h5 className="card-info-header">Montagem Móvel</h5>
                   <img
                     src={van}
@@ -190,7 +191,7 @@ export default function Entrega({
                     Agende sua entrega com a PneuStore Móvel
                   </h5>
                   <br />
-                    <p className="card-text">Confira opções</p>
+                  <p className="card-text">Confira opções</p>
                   <br />
                 </div>
               </div>
@@ -203,10 +204,8 @@ export default function Entrega({
                 tipoModal={tipoModal}
                 mudaDados={mudaDados}
                 setMudaDados={setMudaDados}
-
                 setmodalMontagemSelecionado={setmodalMontagemSelecionado}
                 setmodalCasaSelecionado={setmodalCasaSelecionado}
-                
                 setTemServico={setTemServico}
                 temServico={temServico}
               />
@@ -219,9 +218,10 @@ export default function Entrega({
                 mudaDados={mudaDados}
                 setMudaDados={setMudaDados}
                 tipoModal={tipoModal}
-
                 setmodalMontagemSelecionado={setmodalMontagemSelecionado}
                 setmodalCasaSelecionado={setmodalCasaSelecionado}
+                setTemServico={setTemServico}
+                temServico={temServico}
               />
 
               <div
@@ -232,11 +232,7 @@ export default function Entrega({
                   <h5 className="card-info-header">
                     Entregar e montar em um Centro de Montagem
                   </h5>
-                  <img
-                    src={roda}
-                    alt="Icone a uma roda"
-                    width="60px"
-                  />
+                  <img src={roda} alt="Icone a uma roda" width="60px" />
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">
@@ -245,7 +241,7 @@ export default function Entrega({
                   </h5>
                   <div className="d-flex flex-row justify-content-between">
                     <p className="card-text">De 4 a 7 dias úteis</p>
-                    <p className="card-text">R$34,90</p>
+                    <p className="card-text">R$34,00</p>
                   </div>
                 </div>
               </div>
@@ -254,35 +250,32 @@ export default function Entrega({
                 className={`card mt-3 card-entrega card-2 selecionado-${classCasa}`}
                 onClick={handleClickModalCasa}
               >
-                <div className={`card-header header-${classCasa} d-flex justify-content-between header-2`}>
-                  <h5 className="card-info-header">
-                  Entregar no meu endereço
-                  </h5>
-                  <img
-                    src={casa}
-                    alt="Icone a uma roda"
-                    width="60px"
-                  />
+                <div
+                  className={`card-header header-${classCasa} d-flex justify-content-between header-2`}
+                >
+                  <h5 className="card-info-header">Entregar no meu endereço</h5>
+                  <img src={casa} alt="Icone a uma roda" width="60px" />
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">Normal</h5>
                   <div className="d-flex flex-row justify-content-between">
                     <p className="card-text">De 4 a 7 dias úteis</p>
-                    <p className="card-text">R$34,90</p>
+                    <p className="card-text">R$34,00</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-3 mb-3 d-flex justify-content-center">
-                <button onClick={handleClick} className="button-cep">
-                  Continuar
-                </button>
+                {apareceBotao ? (
+                  <button onClick={handleClick} className="button-cep">
+                    Continuar
+                  </button>
+                ) : null}
               </div>
             </div>
           ) : null}
         </div>
       </div>
-      {/* </form> */}
     </div>
   );
 }

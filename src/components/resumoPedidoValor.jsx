@@ -20,6 +20,7 @@ export default function ResumoPedido({
 
       const servico = localStorage.getItem("tipo-de-Entrega");
       const servicoTipo = JSON.parse(servico);
+      console.log(servicoTipo);
 
       if (servicoTipo === "basico") {
         setValorServico(169.9);
@@ -29,6 +30,11 @@ export default function ResumoPedido({
       if (servicoTipo === "essencial") {
         setValorServico(189.9);
         setTemValorServico(!temValorServico)
+      }
+
+      if (servicoTipo === null || servicoTipo === undefined) {
+        setValorServico(0);
+        setTemValorServico(false)
       }
 
       setValorFrete(freteValor);

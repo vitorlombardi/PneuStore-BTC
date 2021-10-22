@@ -42,7 +42,13 @@ $color-secondary:#68dcfa;
         &.card-2{
             border: 2px solid #5958B9;
         }
+
+        &.selecionado-true{
+            border: 3px solid $color-secondary;
+        }
     }
+
+    
 
     .card-header{
         align-items: center;
@@ -55,6 +61,10 @@ $color-secondary:#68dcfa;
 
         &.header-2{
             border-bottom: 2px solid #5958B9;
+        }
+
+        &.header-true{
+            border-bottom: 3px solid $color-secondary;
         }
     }
 
@@ -70,6 +80,10 @@ $color-secondary:#68dcfa;
         &.card-2{
             border: 2.5px solid #5958B9;
         }
+
+        &.selecionado-true{
+            border: 3px solid $color-secondary;
+        }
     }
 
     .card-header:hover{
@@ -81,6 +95,10 @@ $color-secondary:#68dcfa;
 
         &.header-2{
             border-bottom: 2.5px solid #5958B9;
+        }
+
+        &.header-true{
+            border-bottom: 3px solid $color-secondary;
         }
     }
 

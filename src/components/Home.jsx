@@ -16,15 +16,17 @@ import ProgressBar from "./FormAccount/ProgressBar";
 import { Api } from "Api/Api";
 
 export default function Home() {
-  const [conta, setConta] = useState(true);
+  const [valorTotalCarrinho, setValorTotalCarrinho] = useState(undefined);
+  const [temFrete, setTemFrete] = useState(false);
+  const [temServico, setTemServico] = useState(false);
+  const [entregacasa, setEntregaCasa] = useState(false);
+
   const [pagamento, setPagamento] = useState(false);
   const [entrega, setEntrega] = useState(false);
   const [resumo, setResumo] = useState(false);
   const [Render, setRender] = useState(undefined);
-
   const [idBar, setIdbar] = useState("0");
 
-  //const [dadosClient, setDadosCliente] = useState(undefined);
   useEffect(() => {
     const render = () => {
       if (entrega) {
@@ -34,7 +36,11 @@ export default function Home() {
             setEntrega={setEntrega}
             entrega={entrega}
             setIdbar={setIdbar}
-            //dadosClient={dadosClient}
+            setTemFrete={setTemFrete}
+            setTemServico={setTemServico}
+            temServico={temServico}
+            entregacasa={entregacasa}
+            setEntregaCasa={setEntregaCasa}
           />
         );
       }
@@ -58,30 +64,6 @@ export default function Home() {
     setRender(render);
   }, [entrega, pagamento, resumo]);
 
-  // useEffect(() => {//nao esquecer de passsa a porra da requisicao para o conponente entrega
-  //   if (entrega) {
-  //     const storage = localStorage.getItem("Login");
-  //     console.log(storage);
-
-  //     const dataCliente = async () => {
-  //       try{
-  //         const response = await Api.buildAppGetRequestToken(Api.readClient(),true);
-          
-  //         const result = await response.json();
-
-  //         const filter = result.results.filter((cliente) => cliente.email === `${storage}`)
-  //         setDadosCliente(filter);
-  //         console.log(filter);
-
-  //       }catch (error) {
-  //         console.log({ error: error });
-  //       }
-        
-  //     };
-  //     dataCliente();
-  //   }
-  // }, [entrega]);
-
   return (
     <>
       <div>
@@ -103,9 +85,16 @@ export default function Home() {
             </Col>
 
             <Col className="infos">
-              <Order />
+              <Order 
+              setValorTotalCarrinho={setValorTotalCarrinho} 
+              />
               <Cupom />
-              <ResumoPedidoValor />
+              <ResumoPedidoValor 
+              valorTotalCarrinho={valorTotalCarrinho}
+              temServico={temServico}
+              temFrete={temFrete}
+              entregacasa={entregacasa}
+              />
             </Col>
           </Row>
         </Container>

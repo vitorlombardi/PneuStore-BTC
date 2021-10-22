@@ -15,13 +15,17 @@ export default function Modal({
   tipoModal,
   mudaDados,
   setMudaDados,
+
+  setmodalMontagemSelecionado,
+  setmodalCasaSelecionado,
+
+  setTemServico,
+  temServico
 }) {
   const [escolha, SetEscolha] = useState(undefined);
   const [CriaEnderecoMontagem, setCriaEnderecoMontagem] = useState(true);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
   const [value, onChange] = useState(new Date(2021, 10, 26));
-
-  console.log(value)
 
   const handleClick = (e) => {
     if (e.target.id === id) onClose();
@@ -63,6 +67,10 @@ export default function Modal({
       return alert("Selecione um serviço para continuar")
     }
 
+    if(enderecoEscolhido.address1 === null){
+      return alert("Selecione um endereço para continuar")
+    }
+
     localStorage.setItem(
       "Endereço-de-Entrega",
       JSON.stringify(enderecoEscolhido)
@@ -79,6 +87,12 @@ export default function Modal({
     );
 
     setOpen(!open);
+
+    setmodalMontagemSelecionado(true)
+    setmodalCasaSelecionado(false)
+
+    setTemServico(!temServico)
+  
   };
 
   return (
@@ -261,7 +275,7 @@ export default function Modal({
                   <div className="button">
                     <button
                       className="mt-2 botao-confirmar"
-                      onClick={() => setOpen(!open)}
+                      onClick={handleClickSalvaEndereco}
                     >
                       Enviar para este endereço
                     </button>

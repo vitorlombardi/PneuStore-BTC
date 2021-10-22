@@ -23,7 +23,6 @@ export default function Entrega({
 
   const [dadosClient, setDadosCliente] = useState(undefined);
   const [mudaDados, setMudaDados] = useState(false);
-  console.log(mudaDados);
 
   const [CEP, setCEP] = useState(false);
   const [endereco, setEndereco] = useState(undefined);
@@ -33,6 +32,32 @@ export default function Entrega({
 
   const [enderecoApi, setEnderecoApi] = useState(undefined);
 
+  const [modalMontagemSelecionado, setmodalMontagemSelecionado] = useState(false);
+  const [modalCasaSelecionado, setmodalCasaSelecionado] = useState(false);
+
+  const [classMontagem, setClassMontagem] = useState("");
+  const [classCasa, setClassCasa] = useState("");
+
+  console.log(classMontagem);
+  console.log(classCasa);
+  
+
+  useEffect(() => {
+    const setClassName = () => {
+      if(modalMontagemSelecionado){
+        setClassMontagem("true")
+        setClassCasa("")
+      }
+    
+      if(modalCasaSelecionado){
+        setClassMontagem("")
+        setClassCasa("true")
+      }
+    }
+    setClassName()
+  },[modalCasaSelecionado, modalMontagemSelecionado])
+  
+  
 
   useEffect(() => {
     if (entrega) {
@@ -94,7 +119,6 @@ export default function Entrega({
       const res = await ViaCep.buildAppGetRequest(ViaCep.buscaCep(cep));
       const resultado = await res.json();
       localStorage.setItem("CEP", JSON.stringify(resultado))
-      console.log(resultado);
 
       if (resultado.erro) {
         return alert("CEP inválido");
@@ -148,10 +172,10 @@ export default function Entrega({
               <h3 className="fw-bold mt-5">Tipos de entrega disponíveis</h3>
 
               <div
-                className="card mt-3 card-entrega"
+                className={`card mt-3 card-entrega selecionado-${classMontagem}`}
                 onClick={handleClickModalMontagem}
               >
-                <div className="card-header d-flex justify-content-between">
+                <div className={`card-header header-${classMontagem} d-flex justify-content-between`}>
                   <h5 className="card-info-header">Montagem Móvel</h5>
                   <img
                     src={van}
@@ -177,6 +201,9 @@ export default function Entrega({
                 tipoModal={tipoModal}
                 mudaDados={mudaDados}
                 setMudaDados={setMudaDados}
+
+                setmodalMontagemSelecionado={setmodalMontagemSelecionado}
+                setmodalCasaSelecionado={setmodalCasaSelecionado}
               />
 
               <ModalEntregaCasa
@@ -187,6 +214,9 @@ export default function Entrega({
                 mudaDados={mudaDados}
                 setMudaDados={setMudaDados}
                 tipoModal={tipoModal}
+
+                setmodalMontagemSelecionado={setmodalMontagemSelecionado}
+                setmodalCasaSelecionado={setmodalCasaSelecionado}
               />
 
               <div
@@ -216,10 +246,10 @@ export default function Entrega({
               </div>
 
               <div
-                className="card mt-3 card-entrega card-2"
+                className={`card mt-3 card-entrega card-2 selecionado-${classCasa}`}
                 onClick={handleClickModalCasa}
               >
-                <div className="card-header d-flex justify-content-between header-2">
+                <div className={`card-header header-${classCasa} d-flex justify-content-between header-2`}>
                   <h5 className="card-info-header">
                   Entregar no meu endereço
                   </h5>

@@ -12,7 +12,10 @@ export default function ModalEntregaCasa({
   enderecoApi,
   mudaDados,
   setMudaDados,
-  tipoModal
+  tipoModal,
+
+  setmodalMontagemSelecionado,
+  setmodalCasaSelecionado
 }) {
   const [CriarEnderecos, setCriarEnderecos] = useState(true);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
@@ -47,6 +50,9 @@ export default function ModalEntregaCasa({
     );
 
     setOpen(!open);
+
+    setmodalMontagemSelecionado(false)
+    setmodalCasaSelecionado(true)
   };
 
   return (

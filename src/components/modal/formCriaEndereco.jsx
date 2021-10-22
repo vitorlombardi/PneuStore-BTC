@@ -82,6 +82,15 @@ export default function FormCriaEndereco({
     }
   };
 
+  const handleClickVoltar = () => {
+    if(tipoModal === "casa"){
+      setCriarEnderecos(!CriarEnderecos)
+    }
+    if(tipoModal === "montagem"){
+      setCriaEnderecoMontagem(!CriaEnderecoMontagem)
+    }
+  }
+
   return (
     <>
       <div className="mt-2 d-flex justify-content-center">
@@ -155,7 +164,7 @@ export default function FormCriaEndereco({
             </button>
 
             <button
-              onClick={() => setCriarEnderecos(!CriarEnderecos)}
+              onClick={handleClickVoltar}
               className="back"
             >
               Voltar

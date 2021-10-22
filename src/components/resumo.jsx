@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/resumo.scss";
+import ResponsiveDialog from "./modal/modalFinalizaCompra";
 
 export default function Resumo({ mudaValor, quantidateCarrinho }) {
   const [temCartao, setTemCartao] = useState(undefined);
@@ -12,6 +13,8 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
   const [totalPagar, setTotalPagar] = useState(undefined);
 
   const [itemCarrinho, setCarrinho] = useState(undefined);
+
+  const [endereco, setEndereco] = useState(undefined);
 
   useEffect(() => {
     const cartao = () => {
@@ -34,6 +37,16 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
       setCarrinho(item);
     };
     item();
+  }, []);
+
+  useEffect(() => {
+    const endereco = () => {
+      const storage = localStorage.getItem("Endereço-de-Entrega");
+      const item = JSON.parse(storage);
+
+      setEndereco(item);
+    };
+    endereco();
   }, []);
 
   useEffect(() => {
@@ -81,16 +94,31 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
 
         <div className="cards-resumo">
           <div className="info mt-3 endereco">
-            <span>
-              <b>Entrega no meu endereço</b>
-            </span>
-            <div className="d-flex flex-column">
-              <span>Estrada Joaquim Cardoso Filho 3250</span>
-              <span>Jardim São Marcos</span>
-              <span>Itapecerica da Serra - SP</span>
-              <span>CEP: 06872200</span>
-            </div>
-
+            {endereco ? (
+              <div>
+                <span>
+                  <b>Meu endereço</b>
+                </span>
+                <div className="d-flex flex-column">
+                  <span>
+                    <b>Endereço: </b>
+                    {endereco.address1}
+                  </span>
+                  <span>
+                    <b>Bairro: </b>
+                    {endereco.address2}
+                  </span>
+                  <span>
+                    <b>Uf: </b>
+                    {endereco.city}
+                  </span>
+                  <span>
+                    <b>CEP: </b>
+                    {endereco.zipCode}
+                  </span>
+                </div>
+              </div>
+            ) : null}
             {tipoEntrega ? (
               <div className="info-instalacao">
                 <span>
@@ -139,7 +167,7 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
                 <b>Valor total:</b>
               </span>
               <span>R${totalPagar},00</span>
-              <button className="button-confirma">Confirmar compra</button>
+              <ResponsiveDialog />
             </div>
           ) : null}
         </div>

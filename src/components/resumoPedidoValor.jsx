@@ -6,6 +6,7 @@ export default function ResumoPedido({
   temServico,
   temFrete,
   entregacasa,
+  setMudaValor
 }) {
 
   
@@ -69,8 +70,10 @@ export default function ResumoPedido({
   useEffect(() => {
     const carrinho = () => {
       setValortotal(valorTotalCarrinho + valoFrete + valoServico);
+      setMudaValor(valorTotalCarrinho + valoFrete + valoServico)
     };
     carrinho();
+    
   }, [valoFrete, valoServico, valorTotalCarrinho]);
 
   return (

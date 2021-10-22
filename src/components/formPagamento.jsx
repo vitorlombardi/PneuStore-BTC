@@ -57,6 +57,7 @@ export default function FormPagamento({ setResumo, setPagamento, setIdbar }) {
                   /\d/,
                   /\d/,
                   /\d/,
+                  /\d/,
                   " ",
                   /\d/,
                   /\d/,

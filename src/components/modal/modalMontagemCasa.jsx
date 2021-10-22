@@ -142,7 +142,7 @@ export default function Modal({
                             </span>
                             <span>Montagem + Balanceamento</span>
                           </div>
-                          <span>R$ 169,90</span>
+                          <span>R$ 169,00</span>
                           <div className="form-check" >
                             <input
                               className="form-check-input"
@@ -166,7 +166,7 @@ export default function Modal({
                               do veículo
                             </span>
                           </div>
-                          <span>R$ 189,90</span>
+                          <span>R$ 189,00</span>
                           <div className="form-check" >
                             <input
                               className="form-check-input"

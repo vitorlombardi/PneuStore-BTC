@@ -19,6 +19,8 @@ export default function Entrega({
   setTemFrete,
   setTemServico,
   temServico,
+  entregacasa,
+  setEntregaCasa,
 }) {
   const [tipoModal, setTipoModal] = useState("");
   const [apareceBotao, setApareceBotao] = useState(false);
@@ -127,7 +129,7 @@ export default function Entrega({
       localStorage.setItem("frete", JSON.stringify(34));
     } catch (error) {
       console.log({ error: error });
-      alert("CEP inválido");
+      return alert("CEP inválido");
     }
   };
 
@@ -222,6 +224,8 @@ export default function Entrega({
                 setmodalCasaSelecionado={setmodalCasaSelecionado}
                 setTemServico={setTemServico}
                 temServico={temServico}
+                entregacasa={entregacasa}
+                setEntregaCasa={setEntregaCasa}
               />
 
               <div

@@ -20,6 +20,8 @@ export default function ModalEntregaCasa({
   setTemServico,
   temServico,
 
+  entregacasa,
+  setEntregaCasa,
 }) {
   const [CriarEnderecos, setCriarEnderecos] = useState(true);
   const [enderecoEscolhido, setEnderecoEscolhido] = useState(undefined);
@@ -53,14 +55,15 @@ export default function ModalEntregaCasa({
       JSON.stringify(enderecoEscolhido)
     );
 
-    localStorage.removeItem("tipo-de-Entrega")
-    setTemServico(!temServico)
+    localStorage.removeItem("tipo-de-Entrega");
+    setTemServico(!temServico);
+
+    setEntregaCasa(!entregacasa);
 
     setOpen(!open);
 
-    setmodalMontagemSelecionado(false)
-    setmodalCasaSelecionado(true)
-
+    setmodalMontagemSelecionado(false);
+    setmodalCasaSelecionado(true);
   };
 
   return (

@@ -5,7 +5,19 @@ export default function ResumoPedido({
   valorTotalCarrinho,
   temServico,
   temFrete,
+  entregacasa,
 }) {
+
+  
+
+  useEffect(() => {
+    const local = () => {
+      localStorage.removeItem("tipo-de-Entrega")
+      localStorage.removeItem("frete")
+    }
+    local()
+  },[])
+
   const [valorTotal, setValortotal] = useState(undefined);
   const [valoFrete, setValorFrete] = useState(0);
   const [valoServico, setValorServico] = useState(0);
@@ -23,12 +35,12 @@ export default function ResumoPedido({
       console.log(servicoTipo);
 
       if (servicoTipo === "basico") {
-        setValorServico(169.9);
+        setValorServico(169);
         setTemValorServico(!temValorServico)
 
       }
       if (servicoTipo === "essencial") {
-        setValorServico(189.9);
+        setValorServico(189);
         setTemValorServico(!temValorServico)
       }
 
@@ -40,7 +52,7 @@ export default function ResumoPedido({
       setValorFrete(freteValor);
     };
     carrinho();
-  }, [temServico, temFrete]);
+  }, [temServico, temFrete, entregacasa,]);
 
   useEffect(() => {
     const carrinho = () => {
@@ -55,14 +67,14 @@ export default function ResumoPedido({
         <p>
           <b>SubTotal:</b>
         </p>
-        <p>R$ {valorTotalCarrinho}.00</p>
+        <p>R$ {valorTotalCarrinho},00</p>
       </div>
       {temFrete ? (
         <div className="d-flex flex-row tipo-pedido">
           <p>
             <b>Frete:</b>
           </p>
-          <p>R$ {valoFrete}.00</p>
+          <p>R$ {valoFrete},00</p>
         </div>
       ) : null}
 
@@ -71,7 +83,7 @@ export default function ResumoPedido({
           <p>
             <b>Instalação em domicílio:</b>
           </p>
-          <p>R${valoServico}0</p>
+          <p>R${valoServico},00</p>
         </div>
       ) : null}
 
@@ -80,7 +92,7 @@ export default function ResumoPedido({
           <b>Total:</b>
         </span>
         <span>
-          <b>R$ {valorTotal}0</b>
+          <b>R$ {valorTotal},00</b>
         </span>
       </div>
     </div>

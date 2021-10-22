@@ -17,8 +17,9 @@ import { Api } from "Api/Api";
 
 export default function Home() {
   const [valorTotalCarrinho, setValorTotalCarrinho] = useState(undefined);
-  const [temFrete, setTemFrete] = useState(false)
-  const [temServico, setTemServico] = useState(false)
+  const [temFrete, setTemFrete] = useState(false);
+  const [temServico, setTemServico] = useState(false);
+  const [entregacasa, setEntregaCasa] = useState(false);
 
   const [pagamento, setPagamento] = useState(false);
   const [entrega, setEntrega] = useState(false);
@@ -38,6 +39,8 @@ export default function Home() {
             setTemFrete={setTemFrete}
             setTemServico={setTemServico}
             temServico={temServico}
+            entregacasa={entregacasa}
+            setEntregaCasa={setEntregaCasa}
           />
         );
       }
@@ -90,6 +93,7 @@ export default function Home() {
               valorTotalCarrinho={valorTotalCarrinho}
               temServico={temServico}
               temFrete={temFrete}
+              entregacasa={entregacasa}
               />
             </Col>
           </Row>

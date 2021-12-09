@@ -93,7 +93,7 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
         <h3 className="fw-bold">Resumo da compra</h3>
 
         <div className="cards-resumo">
-          <div className="info mt-3 endereco">
+          <div className="info border-top mt-3 endereco">
             {endereco ? (
               <div>
                 <span>
@@ -162,7 +162,7 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
           ) : null}
 
           {totalPagar ? (
-            <div className="info mt-3 d-flex flex-column valor">
+            <div className="info border-bot mt-3 d-flex flex-column valor">
               <span>
                 <b>Valor total:</b>
               </span>

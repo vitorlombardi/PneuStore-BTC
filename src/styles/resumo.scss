@@ -5,8 +5,22 @@ $color-default: #4e008e;
     .info{
         border-top: 1px solid rgb(98, 98, 98);
         border-bottom: 1px solid rgb(98, 98, 98);
-        border-radius: 0.5rem;
         padding: 1rem;
+
+        &.border-top{
+            margin-top: 1rem;
+            border-top: 1px solid rgb(98, 98, 98);
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            
+        }
+
+        &.border-bot{
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            border-bottom: 1px solid rgb(98, 98, 98);
+            margin-bottom: 1rem;
+        }
     }
 
     & span{

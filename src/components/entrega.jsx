@@ -21,7 +21,7 @@ export default function Entrega({
   setTemServico,
   temServico,
   entregacasa,
-  setEntregaCasa,
+  setEntregaCasa
 }) {
   const [tipoModal, setTipoModal] = useState("");
   const [apareceBotao, setApareceBotao] = useState(false);

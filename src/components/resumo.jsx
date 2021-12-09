@@ -151,7 +151,7 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
               <div className="d-flex flex-row ">
                 <span>{itemCarrinho.nomePneu}</span>
                 <span>x</span>
-                <span>R${itemCarrinho.valorPneu},00</span>
+                <span>R$ {itemCarrinho.valorPneu},00</span>
               </div>
               <div className="d-flex quantidade">
                 <p>
@@ -166,7 +166,7 @@ export default function Resumo({ mudaValor, quantidateCarrinho }) {
               <span>
                 <b>Valor total:</b>
               </span>
-              <span>R${totalPagar},00</span>
+              <span>R$ {totalPagar},00</span>
               <ResponsiveDialog />
             </div>
           ) : null}

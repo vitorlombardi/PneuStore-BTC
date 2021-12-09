@@ -9,7 +9,7 @@ export default function ResumoPedido({
   setMudaValor
 }) {
 
-  
+
 
   useEffect(() => {
     const local = () => {
@@ -17,7 +17,7 @@ export default function ResumoPedido({
       localStorage.removeItem("frete")
     }
     local()
-  },[])
+  }, [])
 
   const [valorTotal, setValortotal] = useState(undefined);
   const [valoFrete, setValorFrete] = useState(0);
@@ -38,7 +38,7 @@ export default function ResumoPedido({
 
   useEffect(() => {
     const carrinho = () => {
-      
+
       const servico = localStorage.getItem("tipo-de-Entrega");
       console.log(servico);
       const servicoTipo = JSON.parse(servico);
@@ -73,7 +73,7 @@ export default function ResumoPedido({
       setMudaValor(valorTotalCarrinho + valoFrete + valoServico)
     };
     carrinho();
-    
+
   }, [valoFrete, valoServico, valorTotalCarrinho]);
 
   return (
@@ -98,7 +98,7 @@ export default function ResumoPedido({
           <p>
             <b>Instalação em domicílio:</b>
           </p>
-          <p>R${valoServico},00</p>
+          <p>R$ {valoServico},00</p>
         </div>
       ) : null}
 
